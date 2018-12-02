@@ -1,0 +1,81 @@
+general {
+    colors = true
+    color_good = "#33FF33"
+    color_bad = "#FF3333"
+    interval = 3
+}
+
+order += "cpu_usage"
+order += "cpu_temperature 0"
+order += "load"
+order += "disk /data"
+order += "disk /storage"
+order += "wireless wlp2s0"
+order += "ethernet enp0s31f6"
+order += "path_exists vpn"
+order += "volume master"
+order += "battery 0"
+order += "tztime local"
+
+cpu_usage {
+    format = "  %usage "
+}
+
+cpu_temperature 0 {
+    format = "  %degrees°C "
+}
+
+load {
+#    format = "  %1min %5min %15min "
+    format = "  %1min "
+    max_threshold = "4"
+}
+
+disk /data {
+    format = "  %avail "
+}
+
+disk /storage {
+    format = "  %avail "
+}
+
+wireless wlp2s0 {
+    format_up = "  %essid%quality %bitrate "
+    format_down = "  WiFi "
+}
+
+ethernet enp0s31f6 {
+    format_up = "  %speed "
+    format_down = "  LAN "
+}
+
+path_exists vpn {
+    format = "  VPN "
+    path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+volume master {
+    format = "  %volume "
+    format_muted = "  MUTE "
+    device = "pulse"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+battery 0 {
+    format = " %status %percentage %consumption %remaining "
+    format_down = "  NO BATTERY "
+    last_full_capacity = true
+    integer_battery_capacity = true
+    low_threshold = 15
+    threshold_type = percentage
+    hide_seconds = true
+    status_chr = ""
+    status_bat = ""
+    status_unk = ""
+    status_full = ""
+}
+
+tztime local {
+    format = "  %d.%m.%Y   %H:%M "
+}

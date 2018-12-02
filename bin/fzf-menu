@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PATH="${0%/*}:${PATH}"
+
+
+# private library functions
+
+_fzf_wrapper() { echo "fzf --prompt="\"${1}\"" --height=100% --reverse --cycle"; }
+
+_exec_fzf() { eval "$(_fzf_wrapper "${1}")"; }
+
+_wmctrl_wrapper() {
+  local -r selection="$(wmctrl -lpx | awk '!/floating/ { print $3, substr($0, index($0, $5)) }' | _exec_fzf "${1} application: ")"
+  [[ -z "${selection}" ]] && exit
+
+  eval wmctrl -F"${2}" "\"$(awk '{ print substr($0, index($0, $3)) }' <<< "${selection}")\""
+}
+
+
+# public functions
+
+run_menu() { i3-dmenu-desktop --dmenu="$(_fzf_wrapper "Run application: ")"; }
+
+pass_menu() { gopass list --flat | _exec_fzf "Password store: " | xargs --no-run-if-empty -I % gopass show -c %; }
+
+clip_menu() {
+  export CM_LAUNCHER="rofi-script"
+
+  local -r selection="$(clipmenu | _exec_fzf "Clipboard content: ")"
+  [[ -z "${selection}" ]] && exit
+
+  clipmenu "${selection}"
+}
+
+focus_menu() { _wmctrl_wrapper "Focus" "a"; }
+
+exit_menu() { _wmctrl_wrapper "Exit" "c"; }
+
+kill_menu() {
+  local -r selection="$(ps -u "${USER}" -o pid,pcpu,pmem,comm | sed 1d | _exec_fzf "Kill process: ")"
+  [[ -z "${selection}" ]] && exit
+
+  kill "$(awk '{ print $2 }' <<< "${selection}" | tr "\n" " ")"
+  notify-send "$(awk '{ print $5 }' <<< "${selection}")" "Killed process" -u low
+}
+
+power_menu() {
+  local -r selection="$(_exec_fzf "Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Sleep]\n[Lock]"))"
+  case ${selection} in
+    "[Shutdown]")
+      systemctl poweroff
+      ;;
+    "[Reboot]")
+      systemctl reboot
+      ;;
+    "[Sleep]")
+      systemctl suspend
+      ;;
+    "[Lock]")
+      loginctl lock-session
+      ;;
+    *) # unknown parameter passed - ignoring
+      ;;
+  esac
+}
+
+screen_menu() {
+  local -r selection="$(_exec_fzf "Screen layout: " <<< $(printf "[Laptop]\n[Work]\n[Home]"))"
+  case ${selection} in
+    "[Laptop]")
+      screen-layout laptop
+      ;;
+    "[Work]")
+      screen-layout work
+      ;;
+    "[Home]")
+      screen-layout home
+      ;;
+    *) # unknown parameter passed - ignoring
+      ;;
+  esac
+}
+
+
+# main
+
+case ${1:-} in
+  "run")
+    run_menu
+    ;;
+  "pass")
+    pass_menu
+    ;;
+  "clip")
+    clip_menu
+    ;;
+  "focus")
+    focus_menu
+    ;;
+  "exit")
+    exit_menu
+    ;;
+  "kill")
+    kill_menu
+    ;;
+  "power")
+    power_menu
+    ;;
+  "screen")
+    screen_menu
+    ;;
+  *) # unknown parameter passed - ignoring
+    exit 1
+    ;;
+esac

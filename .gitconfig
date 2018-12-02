@@ -1,0 +1,14 @@
+[user]
+	name = Piotr Bocheński
+	email = bochenski.piotr@gmail.com
+	signingkey = 0x9E32CE5D595D773A
+[gpg]
+	program = gpg2
+[commit]
+	gpgsign = true
+[credential]
+	helper = !gopass git-credential $@
+[pull]
+	rebase = true
+[gitreview]
+	remote = origin

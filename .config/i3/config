@@ -1,0 +1,211 @@
+# use win key as modifier
+set $mod Mod4
+
+# setup fonts
+font pango:SauceCodePro Nerd Font 10
+
+# key for interacting with floating window (resize, move, etc)
+floating_modifier $mod
+
+# kill window
+bindsym $mod+Shift+q kill
+bindsym Mod1+F4 kill
+# ...but unbind this mistake globally
+bindsym Ctrl+q exec --no-startup-id /bin/true
+
+# change focus
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+
+# change output
+bindsym $mod+Shift+Up focus output up
+bindsym $mod+Shift+Down focus output down
+bindsym $mod+Shift+Left focus output left
+bindsym $mod+Shift+Right focus output right
+
+# move window
+bindsym $mod+k move up
+bindsym $mod+l move down
+bindsym $mod+j move left
+bindsym $mod+semicolon move right
+
+# move container to output
+bindsym $mod+Shift+k move container to output up
+bindsym $mod+Shift+l move container to output down
+bindsym $mod+Shift+j move container to output left
+bindsym $mod+Shift+semicolon move container to output right
+
+# move workspace to output
+bindsym Control+$mod+k move workspace to output up
+bindsym Control+$mod+l move workspace to output down
+bindsym Control+$mod+j move workspace to output left
+bindsym Control+$mod+semicolon move workspace to output right
+
+# split horizontal / vertical
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus parent / child container
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+
+# switch workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+minus workspace number 11
+bindsym $mod+equal workspace number 12
+
+# move container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6; workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
+bindsym $mod+Shift+minus move container to workspace number 11; workspace number 11
+bindsym $mod+Shift+equal move container to workspace number 12; workspace number 12
+
+# reload config / restart
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# resize window
+mode "resize" {
+    bindsym Up resize shrink height 2 px or 2 ppt
+    bindsym Down resize grow height 2 px or 2 ppt
+    bindsym Left resize shrink width 2 px or 2 ppt
+    bindsym Right resize grow width 2 px or 2 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# setup status bar
+bar {
+    status_command i3status
+    position top
+    tray_output primary
+    colors {
+        background #323232
+        statusline #FFFFFF
+        separator #666666
+
+        focused_workspace #4C7899 #3E515A #FFFFFF
+    }
+}
+
+# setup colors
+client.focused #4C7899 #3E515A #FFFFFF #2E9EF4 #285577
+
+# setup gaps and borders
+for_window [class="^.*"] border pixel 2
+gaps inner 8
+gaps outer 0
+smart_gaps on
+smart_borders on
+
+# switch to previous workspace quickly
+workspace_auto_back_and_forth yes
+bindsym $mod+z workspace back_and_forth
+bindsym $mod+Shift+z move container to workspace back_and_forth; workspace back_and_forth
+
+# explicit keyboard focus only
+focus_follows_mouse no
+
+# application specific settings
+for_window [class="^floating$"] floating enable, resize set 550 350, move position center
+for_window [instance="galculator"] floating enable
+for_window [instance="gimp"] floating enable
+
+# autostart and wallpaper
+set $wallpaper Pictures/Wallpapers/cube.jpg
+exec_always --no-startup-id feh --bg-fill $wallpaper
+exec --no-startup-id dunst &
+exec --no-startup-id xss-lock -- alock -auth pam -bg shade &
+exec --no-startup-id pcmanfm-qt --daemon-mode &
+exec --no-startup-id flameshot &
+
+# terminal binds
+bindsym $mod+grave exec --no-startup-id termite
+bindsym $mod+Shift+grave exec --no-startup-id termite --class=floating
+
+# run menu bind
+#bindsym $mod+Return exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -b -i -fn 'Source Code Pro-10' -nb \#323232 -nf \#FFFFFF -sb \#3E515A -sf \#FFFFFF"
+bindsym $mod+Return exec --no-startup-id termite --class=floating --exec="bin/fzf-menu run"
+
+# password menu bind
+bindsym $mod+p exec --no-startup-id termite --class=floating --exec="bin/fzf-menu pass"
+
+# clipboard manager bind
+#bindsym Control+$mod+v exec --no-startup-id clipmenu -b -i -fn 'Source Code Pro-10' -nb \#323232 -nf \#FFFFFF -sb \#3E515A -sf \#FFFFFF
+bindsym Control+$mod+v exec --no-startup-id termite --class=floating --exec="bin/fzf-menu clip"
+
+# focus menu bind
+bindsym Mod1+Tab exec --no-startup-id termite --class=floating --exec="bin/fzf-menu focus"
+
+# exit menu bind
+bindsym $mod+Tab exec --no-startup-id termite --class=floating --exec="bin/fzf-menu exit"
+
+# kill menu bind
+bindsym $mod+Escape exec --no-startup-id termite --class=floating --exec="bin/fzf-menu kill"
+
+# power menu bind
+bindsym Control+Mod1+Delete exec --no-startup-id termite --class=floating --exec="bin/fzf-menu power"
+
+# screen layout menu bind
+bindsym Control+Mod1+BackSpace exec --no-startup-id termite --class=floating --exec="bin/fzf-menu screen"
+
+# select X window to kill bind
+bindsym --release Control+Shift+Escape exec --no-startup-id xkill
+
+# lock screen bind
+bindsym $mod+Mod1+l exec --no-startup-id loginctl lock-session
+
+# print screen binds
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Print exec --no-startup-id scrot '%Y-%m-%d_%T.png' -e 'mv $f /tmp/'
+
+# function keys bind
+bindsym XF86Sleep exec --no-startup-id systemctl suspend
+bindsym XF86Display exec --no-startup-id bin/screen-layout laptop
+bindsym XF86MonBrightnessDown exec --no-startup-id bin/backlight dec 10
+bindsym XF86MonBrightnessUp exec --no-startup-id bin/backlight inc 10
+
+# audio keys bind
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 5%- unmute
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 5%+ unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
+bindsym XF86AudioMicMute exec --no-startup-id amixer -q -D pulse set Capture toggle
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
