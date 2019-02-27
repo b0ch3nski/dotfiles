@@ -41,6 +41,19 @@ layout_home() {
   --output DP2 --off
 }
 
+layout_tv() {
+  xrandr \
+  --output VIRTUAL1 --off \
+  --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal \
+  --output DP1 --off \
+  --output HDMI2 --off \
+  --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate normal \
+  --output DP1-3 --off \
+  --output DP1-2 --off \
+  --output DP1-1 --off \
+  --output DP2 --off
+}
+
 case ${1:-} in
   "laptop")
     layout_laptop
@@ -50,6 +63,9 @@ case ${1:-} in
     ;;
   "home")
     layout_home
+    ;;
+  "tv")
+    layout_tv
     ;;
   *) # unknown parameter passed - ignoring
     exit 1

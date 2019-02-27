@@ -38,7 +38,7 @@ Xft.rgba:                      rgb
 *.colorBD:                     #ffffff
 
 alock.background*shade:        100
-alock.background*blur:         80
+alock.background*blur:         50
 alock*frame*input:             #33ff33
 alock*frame*check:             #2e9ef4
 alock*frame*error:             #ff3333
