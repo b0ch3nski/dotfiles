@@ -25,5 +25,8 @@ xset dpms 0 0 600
 # enable GnuPG SSH agent
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
+# create Xauthority for Docker containers
+xauth nlist "${DISPLAY}" | sed -e "s/^..../ffff/" | xauth -f "${HOME}/.Xauthority-docker" nmerge -
+
 # start LXQT session
 exec startlxqt
