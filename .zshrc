@@ -30,7 +30,7 @@ HISTORY_IGNORE="(ls|ll|cd|pwd|kill)"
 
 umask 077
 
-export GOPATH="/data/workspace/go"
+export GOPATH="/data/workspace/golang"
 export PATH="${GOPATH}/bin:~/bin:${PATH}"
 export EDITOR="vim"
 export SUDO_EDITOR="${EDITOR}"

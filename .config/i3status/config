@@ -8,6 +8,7 @@ general {
 order += "cpu_usage"
 order += "cpu_temperature 0"
 order += "load"
+order += "memory"
 order += "disk /data"
 order += "disk /storage"
 order += "wireless wlp2s0"
@@ -15,28 +16,41 @@ order += "ethernet enp0s31f6"
 order += "path_exists vpn"
 order += "volume master"
 order += "battery 0"
-order += "tztime local"
+order += "time"
 
 cpu_usage {
     format = "  %usage "
+    degraded_threshold = 75
+    max_threshold = 90
 }
 
 cpu_temperature 0 {
     format = "  %degrees°C "
+    max_threshold = 65
 }
 
 load {
 #    format = "  %1min %5min %15min "
     format = "  %1min "
-    max_threshold = "4"
+    max_threshold = 4
+}
+
+memory {
+    format = "  %available "
+    threshold_degraded = "10%"
+    threshold_critical = "5%"
 }
 
 disk /data {
-    format = "  %avail "
+    format = "  %avail "
+    threshold_type = "percentage_avail"
+    low_threshold = 10
 }
 
 disk /storage {
-    format = "  %avail "
+    format = "  %avail "
+    threshold_type = "percentage_avail"
+    low_threshold = 5
 }
 
 wireless wlp2s0 {
@@ -45,12 +59,12 @@ wireless wlp2s0 {
 }
 
 ethernet enp0s31f6 {
-    format_up = "  %speed "
-    format_down = "  LAN "
+    format_up = "  %speed "
+    format_down = "  LAN "
 }
 
 path_exists vpn {
-    format = "  VPN "
+    format = " 嬨 VPN "
     path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
@@ -59,7 +73,6 @@ volume master {
     format_muted = "  MUTE "
     device = "pulse"
     mixer = "Master"
-    mixer_idx = 0
 }
 
 battery 0 {
@@ -76,6 +89,6 @@ battery 0 {
     status_full = ""
 }
 
-tztime local {
-    format = "  %d.%m.%Y   %H:%M "
+time {
+    format = "  %d.%m.%Y   %H:%M "
 }
