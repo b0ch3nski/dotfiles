@@ -15,7 +15,6 @@ layout_laptop() {
 }
 
 layout_work() {
-  local -r movement="0"
   xrandr \
   --output VIRTUAL1 --off \
   --output eDP1 --off \
@@ -23,9 +22,9 @@ layout_work() {
   --output HDMI2 --off \
   --output HDMI1 --off \
   --output DP1-3 --off \
-  --output DP1-2 --primary --mode 1920x1200 --pos 1920x${movement} --rotate normal --crtc 2 \
-  --output DP1-1 --mode 1920x1200 --pos 0x${movement} --rotate normal \
-  --output DP2 --mode 1920x1200 --pos 3840x0 --rotate left
+  --output DP1-2 --primary --mode 1920x1200 --pos 1920x0 --rotate normal --crtc 2 \
+  --output DP1-1 --mode 1920x1200 --pos 0x0 --rotate normal \
+  --output DP2 --mode 1920x1200 --pos 3840x0 --rotate normal
 }
 
 layout_home() {
