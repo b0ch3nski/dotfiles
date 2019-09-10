@@ -150,6 +150,7 @@ set $wallpaper Pictures/Wallpapers/cube.jpg
 exec_always --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id dunst &
 exec --no-startup-id xss-lock -- alock -auth pam -bg shade &
+exec --no-startup-id yubikey-touch-detector --u2f-authpending-path=/var/run/user/1337/pam-u2f-authpending --libnotify &
 exec --no-startup-id pcmanfm-qt --daemon-mode &
 exec --no-startup-id flameshot &
 
