@@ -164,6 +164,9 @@ bindsym $mod+Return exec --no-startup-id termite --class=floating --exec="bin/fz
 # password menu bind
 bindsym $mod+p exec --no-startup-id termite --class=floating --exec="bin/fzf-menu pass"
 
+# monitoring bind
+bindsym $mod+m append_layout .config/i3/monitoring.json; exec termite --role=dry --exec="dry --monitor=2000"; exec termite --role=left-nmon --exec="sh -c 'NMON=cmnd nmon'"; exec termite --role=right-nmon --exec="sh -c 'NMON=lt nmon'"; exec termite --role=dmesg --exec="dmesg --follow"; exec termite --role=journal --exec="journalctl -f"
+
 # clipboard manager bind
 #bindsym Control+$mod+v exec --no-startup-id clipmenu -b -i -fn 'Source Code Pro-10' -nb \#323232 -nf \#FFFFFF -sb \#3E515A -sf \#FFFFFF
 bindsym Control+$mod+v exec --no-startup-id termite --class=floating --exec="bin/fzf-menu clip"
