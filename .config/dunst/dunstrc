@@ -342,9 +342,11 @@
 
 [deadbeef]
     appname = DeaDBeeF
-    urgency = low
     history_ignore = yes
-    #new_icon = dialog-information
+    urgency = low
+    background = "#323232"
+    foreground = "#33FF33"
+    timeout = 10
 
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client
