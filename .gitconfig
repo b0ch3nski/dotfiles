@@ -10,5 +10,7 @@
 	helper = !gopass git-credential $@
 [pull]
 	rebase = true
+[push]
+	default = current
 [gitreview]
 	remote = origin

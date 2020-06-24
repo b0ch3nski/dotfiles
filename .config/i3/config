@@ -145,20 +145,14 @@ for_window [class="^floating$"] floating enable, resize set 550 350, move positi
 for_window [instance="qalculate-gtk"] floating enable
 for_window [instance="gimp"] floating enable
 
-# autostart and wallpaper
-set $wallpaper Pictures/Wallpapers/cube.jpg
-exec_always --no-startup-id feh --bg-fill $wallpaper
-exec --no-startup-id dunst &
-exec --no-startup-id xss-lock -- alock -auth pam -bg shade &
-exec --no-startup-id pcmanfm-qt --daemon-mode &
-exec --no-startup-id flameshot &
+# set wallpaper
+exec_always --no-startup-id feh --bg-fill Pictures/Wallpapers/cube.jpg
 
 # terminal binds
 bindsym $mod+grave exec --no-startup-id termite
 bindsym $mod+Shift+grave exec --no-startup-id termite --class=floating
 
 # run menu bind
-#bindsym $mod+Return exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -b -i -fn 'Source Code Pro-10' -nb \#323232 -nf \#FFFFFF -sb \#3E515A -sf \#FFFFFF"
 bindsym $mod+Return exec --no-startup-id termite --class=floating --exec="bin/fzf-menu run"
 
 # password menu bind
@@ -168,7 +162,6 @@ bindsym $mod+p exec --no-startup-id termite --class=floating --exec="bin/fzf-men
 bindsym $mod+m append_layout .config/i3/monitoring.json; exec termite --role=dry --exec="dry --monitor=2000"; exec termite --role=left-nmon --exec="sh -c 'NMON=cmnd nmon'"; exec termite --role=right-nmon --exec="sh -c 'NMON=lt nmon'"; exec termite --role=dmesg --exec="dmesg --follow"; exec termite --role=journal --exec="journalctl -f"
 
 # clipboard manager bind
-#bindsym Control+$mod+v exec --no-startup-id clipmenu -b -i -fn 'Source Code Pro-10' -nb \#323232 -nf \#FFFFFF -sb \#3E515A -sf \#FFFFFF
 bindsym Control+$mod+v exec --no-startup-id termite --class=floating --exec="bin/fzf-menu clip"
 
 # focus menu bind

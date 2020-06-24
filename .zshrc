@@ -1,7 +1,7 @@
-############################
-##   General ZSH config   ##
-############################
+# load profile
+[ -f "${HOME}/.zprofile" ] && source ${HOME}/.zprofile
 
+# general ZSH config
 setopt inc_append_history share_history hist_ignore_all_dups auto_cd auto_pushd pushd_ignore_dups extended_glob no_glob_dots complete_in_word hash_list_all no_clobber prompt_subst no_beep print_exit_value
 
 bindkey -v
@@ -23,49 +23,16 @@ HISTSIZE=25000
 SAVEHIST="${HISTSIZE}"
 HISTORY_IGNORE="(ls|ll|cd|pwd|kill)"
 
-
-############################
-##   Set up environment   ##
-############################
-
-umask 077
-
-export GOPATH="/data/workspace/golang"
-export PATH="${GOPATH}/bin:${HOME}/bin:${PATH}"
-export EDITOR="vim"
-export SUDO_EDITOR="${EDITOR}"
-export VISUAL="${EDITOR}"
-export PAGER="less"
-export BROWSER="firefox"
-export LESS="-Rc"
-export MANPAGER="less -Ms +Gg"
-export BAT_THEME="Monokai Extended"
-export NMON="lcmdnt"
-export LD_LIBRARY_PATH="/usr/lib"
-export VAGRANT_DEFAULT_PROVIDER="lxc"
-export GRADLE_OPTS="-Dorg.gradle.daemon=true -Dorg.gradle.caching=true -Dorg.gradle.parallel=true"
-
-
-############################
-##    Useful functions    ##
-############################
-
+# fancy functions
 cat-clip() { [[ -f "${1}" ]] && (cat "${1}" | xsel -ib) || echo "${1}: No such file"; }
 
-hex() {
-  emulate -L zsh
-  [[ -n "${1}" ]] && printf "%x\n" $1 || print 'Usage: hex <number-to-convert>'
-}
+hex() { [[ -n "${1}" ]] && printf "%x\n" $1 || print "Usage: hex <number-to-convert>" }
 
 min() { printf "%s\n" "${@:2}" | sort "${1}" | head -n1; }
 
 max() { min "${1}r" "${@:2}"; }
 
-
-############################
-##    General aliases     ##
-############################
-
+# general aliases
 alias chgrp="chgrp --preserve-root"
 alias chmod="chmod --preserve-root"
 alias chown="chown --preserve-root"
@@ -97,11 +64,7 @@ alias scrot="scrot --count --delay 3 '/tmp/screen_%Y-%m-%d_%T.png'"
 alias tree="ll --tree"
 alias unmount="umount"
 
-
-############################
-##  Pacman related stuff  ##
-############################
-
+# pacman aliases
 alias p="sudo bauerbill"
 alias pm="pacman"
 alias update="p -Syy"
@@ -119,11 +82,7 @@ alias listaur="pm -Qm"
 alias pacorph="(pacman -Qdtq || true) | xargs -r sudo pacman -Rns --noconfirm"
 alias pacnew="(find / -regextype posix-extended -regex '.+\.pac(new|save|orig)' 2> /dev/null) || true"
 
-
-############################
-##       Git stuff        ##
-############################
-
+# git aliases
 alias gita="git add"
 alias gitb="git branch"
 alias gitc="git commit -s"
@@ -145,11 +104,7 @@ alias gitrv="git revert"
 alias gits="git status"
 alias gitsh="git show"
 
-
-############################
-##      Docker stuff      ##
-############################
-
+# docker aliases
 alias doccomp="docker-compose"
 alias docimg="docker images"
 alias docip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
@@ -163,17 +118,13 @@ alias docimgcln="docker image prune -f"
 alias docvolcln="docker volume prune -f"
 alias docclnall="docker system prune --volumes -f"
 
-
-############################
-##        Includes        ##
-############################
-
-if [[ "${TERM}" == "xterm-termite" ]]; then
+# includes
+if [ "${TERM}" = "xterm-termite" ]; then
   source /etc/profile.d/vte.sh
   __vte_osc7
 fi
 
-if [[ -f "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" && "${TERM}" != "linux" ]]; then
+if [ -f "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" ] && [ "${TERM}" != "linux" ]; then
   POWERLEVEL9K_MODE="nerdfont-complete"
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
@@ -183,7 +134,7 @@ if [[ -f "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" && "${TERM
   POWERLEVEL9K_DIR_SHOW_WRITABLE="true"
 fi
 
-if [[ -f "/usr/share/fzf/key-bindings.zsh" && -f "/usr/share/fzf/completion.zsh" ]]; then
+if [ -f "/usr/share/fzf/key-bindings.zsh" ] && [ -f "/usr/share/fzf/completion.zsh" ]; then
   source /usr/share/fzf/key-bindings.zsh
   source /usr/share/fzf/completion.zsh
 
@@ -191,6 +142,5 @@ if [[ -f "/usr/share/fzf/key-bindings.zsh" && -f "/usr/share/fzf/completion.zsh"
   export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden"
 fi
 
-[[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[[ -f "/usr/share/doc/pkgfile/command-not-found.zsh" ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
-[[ -f "/etc/profile.d/proxy.sh" ]] && source /etc/profile.d/proxy.sh
+[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f "/usr/share/doc/pkgfile/command-not-found.zsh" ] && source /usr/share/doc/pkgfile/command-not-found.zsh
