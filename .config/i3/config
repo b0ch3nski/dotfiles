@@ -146,7 +146,17 @@ for_window [instance="qalculate-gtk"] floating enable
 for_window [instance="gimp"] floating enable
 
 # set wallpaper
-exec_always --no-startup-id feh --bg-fill Pictures/Wallpapers/cube.jpg
+set $wallpaper Pictures/Wallpapers/cube.jpg
+exec_always --no-startup-id feh --bg-fill $wallpaper
+
+# autostart
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+exec --no-startup-id xss-lock -- alock -auth pam -bg shade &
+exec --no-startup-id dunst &
+exec --no-startup-id nm-applet &
+exec --no-startup-id blueman-applet &
+exec --no-startup-id pcmanfm-qt --daemon-mode &
+exec --no-startup-id flameshot &
 
 # terminal binds
 bindsym $mod+grave exec --no-startup-id termite

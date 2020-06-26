@@ -1,6 +1,3 @@
-# load profile
-[ -f "${HOME}/.zprofile" ] && source ${HOME}/.zprofile
-
 # general ZSH config
 setopt inc_append_history share_history hist_ignore_all_dups auto_cd auto_pushd pushd_ignore_dups extended_glob no_glob_dots complete_in_word hash_list_all no_clobber prompt_subst no_beep print_exit_value
 
@@ -78,6 +75,7 @@ alias repoinfo="pm -Si"
 alias localinfo="pm -Qi"
 alias listlocal="pm -Qe"
 alias listlocalexp="comm -23 <(pm -Qqen | sort) <(pm -Qqg base base-devel | sort -u)"
+alias listfiles="pm -Ql"
 alias listaur="pm -Qm"
 alias pacorph="(pacman -Qdtq || true) | xargs -r sudo pacman -Rns --noconfirm"
 alias pacnew="(find / -regextype posix-extended -regex '.+\.pac(new|save|orig)' 2> /dev/null) || true"
@@ -144,3 +142,4 @@ fi
 
 [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f "/usr/share/doc/pkgfile/command-not-found.zsh" ] && source /usr/share/doc/pkgfile/command-not-found.zsh
+[ -f "/etc/profile.d/proxy.sh" ] && source /etc/profile.d/proxy.sh

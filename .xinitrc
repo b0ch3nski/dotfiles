@@ -19,31 +19,21 @@ if [ -d "${sysxinit}" ]; then
     done
 fi
 
+# configure keyboard
 setxkbmap -model pc104 -layout pl
+
+# set keyboard typematic delay and rate
+xset r rate 250 30
 
 # do not beep
 xset b off
 xset c off
 
-# keyboard typematic delay and rate
-xset r rate 250 30
-
 # turn off screen after 10 min
 xset dpms 0 0 600
-
-# enable GnuPG SSH agent
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 # create Xauthority for Docker containers
 xauth nlist "${DISPLAY}" | sed -e "s/^..../ffff/" | xauth -f "${HOME}/.Xauthority-docker" nmerge -
 
-# autostart
-/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
-xss-lock -- alock -auth pam -bg shade &
-dunst &
-nm-applet &
-blueman-applet &
-pcmanfm-qt --daemon-mode &
-flameshot &
-
+# start i3 window manager
 exec i3
