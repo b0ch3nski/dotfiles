@@ -72,5 +72,8 @@ case ${1:-} in
 esac
 
 [[ ${?} != 0 ]] && layout_laptop && exit 1
+
 i3-msg restart
+xset dpms 0 0 600
+
 notify-send "${1^}" "Screen layout enabled" -u low

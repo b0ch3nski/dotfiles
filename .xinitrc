@@ -19,16 +19,6 @@ if [ -d "${sysxinit}" ]; then
     done
 fi
 
-# configure keyboard
-setxkbmap -model pc104 -layout pl
-
-# set keyboard typematic delay and rate
-xset r rate 250 30
-
-# do not beep
-xset b off
-xset c off
-
 # turn off screen after 10 min
 xset dpms 0 0 600
 
