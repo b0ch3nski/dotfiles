@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+BCTL="brightnessctl --device=intel_backlight"
+
 notify_backlight() {
-  notify-send "$(xbacklight -get | cut -d "." -f1)%" "Screen backlight ${1:-N/A}%" -u low
+  notify-send "$(${BCTL} -m info | cut -d ',' -f4)" "Screen backlight ${1:-N/A}%" -u low
 }
 
 case ${1:-} in
   "inc")
-    xbacklight -inc "${2}"
+    ${BCTL} -q set "+${2}%"
     notify_backlight "increased by ${2}"
     ;;
   "dec")
-    xbacklight -dec "${2}"
+    ${BCTL} -q set "${2}%-"
     notify_backlight "decreased by ${2}"
     ;;
   "set")
-    xbacklight -set "${2}"
+    ${BCTL} -q set "${2}%"
     notify_backlight "set to ${2}"
     ;;
   *) # unknown parameter passed - ignoring
