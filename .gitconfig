@@ -7,7 +7,7 @@
 [commit]
 	gpgsign = true
 [credential]
-	helper = !gopass-git-credentials $@
+	helper = !git-credential-gopass $@
 [pull]
 	rebase = true
 [push]

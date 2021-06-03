@@ -168,9 +168,6 @@ bindsym $mod+Return exec --no-startup-id termite --class=floating --exec="bin/fz
 # password menu bind
 bindsym $mod+p exec --no-startup-id termite --class=floating --exec="bin/fzf-menu pass"
 
-# monitoring bind
-bindsym $mod+m append_layout .config/i3/monitoring.json; exec termite --role=dry --exec="dry --monitor=2000"; exec termite --role=left-nmon --exec="sh -c 'NMON=cmnd nmon'"; exec termite --role=right-nmon --exec="sh -c 'NMON=lt nmon'"; exec termite --role=dmesg --exec="dmesg --follow"; exec termite --role=journal --exec="journalctl -f"
-
 # clipboard manager bind
 bindsym Control+$mod+v exec --no-startup-id termite --class=floating --exec="bin/fzf-menu clip"
 
@@ -206,10 +203,10 @@ bindsym XF86MonBrightnessDown exec --no-startup-id bin/backlight dec 10
 bindsym XF86MonBrightnessUp exec --no-startup-id bin/backlight inc 10
 
 # audio keys bind
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 5%- unmute
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 5%+ unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
-bindsym XF86AudioMicMute exec --no-startup-id amixer -q -D pulse set Capture toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id bin/volume Master dec 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id bin/volume Master inc 5
+bindsym XF86AudioMute exec --no-startup-id bin/volume Master flip
+bindsym XF86AudioMicMute exec --no-startup-id bin/volume Capture flip
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
 bindsym XF86AudioStop exec --no-startup-id playerctl stop

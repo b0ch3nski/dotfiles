@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+CMD="amixer -D pulse"
+CHN="${1:-Master}"
+
+case ${2} in
+  "inc")
+    ${CMD} -q set ${CHN} "${3:-5}%+" unmute
+    ;;
+  "dec")
+    ${CMD} -q set ${CHN} "${3:-5}%-" unmute
+    ;;
+  "set")
+    ${CMD} -q set ${CHN} "${3:-100}%"
+    ;;
+  "flip")
+    ${CMD} -q set ${CHN} toggle
+    ;;
+  *) # unknown parameter passed - ignoring
+    ;;
+esac
+
+notify-send "${CHN} volume" -h "int:value:$(${CMD} get ${CHN} | tail -1 | awk -F '[][]' '{if ($4=="off") {$2=0}; print $2+0}')" -u low
