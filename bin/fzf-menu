@@ -11,10 +11,10 @@ _fzf_wrapper() { echo "fzf --prompt="\"${1}\"" --height=100% --reverse --cycle";
 _exec_fzf() { eval "$(_fzf_wrapper "${1}")"; }
 
 _wmctrl_wrapper() {
-  local -r selection="$(wmctrl -lpx | awk '!/floating/ { print $3, substr($0, index($0, $5)) }' | _exec_fzf "${1} application: ")"
+  local -r selection="$(wmctrl -lpx | awk '!/floating/ { print $3, substr($0, index($0, $6)) }' | _exec_fzf "${1} application: ")"
   [[ -z "${selection}" ]] && exit
 
-  eval wmctrl -F"${2}" "\"$(awk '{ print substr($0, index($0, $3)) }' <<< "${selection}")\""
+  eval wmctrl -F"${2}" "\"$(awk '{ print substr($0, index($0, $2)) }' <<< "${selection}")\""
 }
 
 

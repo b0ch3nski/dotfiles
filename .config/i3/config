@@ -1,3 +1,7 @@
+# variables
+set $term alacritty
+set $termf alacritty --class=floating
+set $wallpaper Pictures/Wallpapers/cube.jpg
 # use win key as modifier
 set $mod Mod4
 
@@ -141,12 +145,11 @@ bindsym $mod+Shift+z move container to workspace back_and_forth; workspace back_
 focus_follows_mouse no
 
 # application specific settings
-for_window [class="^floating$"] floating enable, resize set 550 350, move position center
+for_window [instance="floating"] floating enable, resize set 550 350, move position center
 for_window [instance="qalculate-gtk"] floating enable
 for_window [instance="gimp"] floating enable
 
 # set wallpaper
-set $wallpaper Pictures/Wallpapers/cube.jpg
 exec_always --no-startup-id feh --bg-fill $wallpaper
 
 # autostart
@@ -159,32 +162,32 @@ exec --no-startup-id pcmanfm-qt --daemon-mode &
 exec --no-startup-id flameshot &
 
 # terminal binds
-bindsym $mod+grave exec --no-startup-id termite
-bindsym $mod+Shift+grave exec --no-startup-id termite --class=floating
+bindsym $mod+grave exec --no-startup-id $term
+bindsym $mod+Shift+grave exec --no-startup-id $termf
 
 # run menu bind
-bindsym $mod+Return exec --no-startup-id termite --class=floating --exec="bin/fzf-menu run"
+bindsym $mod+Return exec --no-startup-id $termf -e bin/fzf-menu run
 
 # password menu bind
-bindsym $mod+p exec --no-startup-id termite --class=floating --exec="bin/fzf-menu pass"
+bindsym $mod+p exec --no-startup-id $termf -e bin/fzf-menu pass
 
 # clipboard manager bind
-bindsym Control+$mod+v exec --no-startup-id termite --class=floating --exec="bin/fzf-menu clip"
+bindsym Control+$mod+v exec --no-startup-id $termf -e bin/fzf-menu clip
 
 # focus menu bind
-bindsym Mod1+Tab exec --no-startup-id termite --class=floating --exec="bin/fzf-menu focus"
+bindsym Mod1+Tab exec --no-startup-id $termf -e bin/fzf-menu focus
 
 # exit menu bind
-bindsym $mod+Tab exec --no-startup-id termite --class=floating --exec="bin/fzf-menu exit"
+bindsym $mod+Tab exec --no-startup-id $termf -e bin/fzf-menu exit
 
 # kill menu bind
-bindsym $mod+Escape exec --no-startup-id termite --class=floating --exec="bin/fzf-menu kill"
+bindsym $mod+Escape exec --no-startup-id $termf -e bin/fzf-menu kill
 
 # power menu bind
-bindsym Control+Mod1+Delete exec --no-startup-id termite --class=floating --exec="bin/fzf-menu power"
+bindsym Control+Mod1+Delete exec --no-startup-id $termf -e bin/fzf-menu power
 
 # screen layout menu bind
-bindsym Control+Mod1+BackSpace exec --no-startup-id termite --class=floating --exec="bin/fzf-menu screen"
+bindsym Control+Mod1+BackSpace exec --no-startup-id $termf -e bin/fzf-menu screen
 
 # select X window to kill bind
 bindsym --release Control+Shift+Escape exec --no-startup-id xkill

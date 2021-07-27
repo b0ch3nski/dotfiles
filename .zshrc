@@ -117,11 +117,6 @@ alias docvolcln="docker volume prune -f"
 alias docclnall="docker system prune --volumes -f"
 
 # includes
-if [ "${TERM}" = "xterm-termite" ]; then
-  source /etc/profile.d/vte.sh
-  __vte_osc7
-fi
-
 if [ -f "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" ] && [ "${TERM}" != "linux" ]; then
   POWERLEVEL9K_MODE="nerdfont-complete"
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme

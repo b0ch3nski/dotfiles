@@ -1,5 +1,3 @@
-umask 077
-
 export GOPATH="/data/workspace/golang"
 export PATH="${GOPATH}/bin:${HOME}/bin:${PATH}"
 
