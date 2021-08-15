@@ -3,58 +3,43 @@ set -uo pipefail
 
 layout_laptop() {
   xrandr \
-  --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal \
+  --output LVDS-1 --mode 1366x768 --pos 0x0 --rotate normal --scale 1.26x1.26 \
+  --output VGA-1 --off \
   --output DP-1 --off \
-  --output HDMI-2 --off \
+  --output DP-2 --off \
+  --output DP-3 --off \
   --output HDMI-1 --off \
-  --output DP-1-3 --off \
-  --output DP-1-2 --off \
-  --output DP-1-1 --off \
-  --output DP-2 --off
-}
-
-layout_work() {
-  xrandr \
-  --output eDP-1 --off \
-  --output DP-1 --off \
   --output HDMI-2 --off \
-  --output HDMI-1 --off \
-  --output DP-1-3 --off \
-  --output DP-1-2 --primary --mode 1920x1200 --pos 1920x0 --rotate normal --crtc 2 \
-  --output DP-1-1 --mode 1920x1200 --pos 0x0 --rotate normal \
-  --output DP-2 --mode 1920x1200 --pos 3840x0 --rotate normal
+  --output HDMI-3 --off
 }
 
 layout_home() {
   xrandr \
-  --output eDP-1 --off \
+  --output LVDS-1 --off \
+  --output VGA-1 --off \
   --output DP-1 --off \
-  --output HDMI-2 --off \
+  --output DP-2 --mode 1920x1080 --pos 1920x0 --rotate normal \
+  --output DP-3 --primary --mode 1920x1080 --pos 0x0 --rotate normal \
   --output HDMI-1 --off \
-  --output DP-1-3 --off \
-  --output DP-1-2 --mode 1920x1080 --pos 1920x0 --rotate normal --crtc 2 \
-  --output DP-1-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal \
-  --output DP-2 --off
+  --output HDMI-2 --off \
+  --output HDMI-3 --off
 }
 
 layout_tv() {
   xrandr \
-  --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal \
+  --output LVDS-1 --off \
+  --output VGA-1 --off \
   --output DP-1 --off \
+  --output DP-2 --off \
+  --output DP-3 --off \
+  --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal \
   --output HDMI-2 --off \
-  --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal \
-  --output DP-1-3 --off \
-  --output DP-1-2 --off \
-  --output DP-1-1 --off \
-  --output DP-2 --off
+  --output HDMI-3 --off
 }
 
 case ${1:-} in
   "laptop")
     layout_laptop
-    ;;
-  "work")
-    layout_work
     ;;
   "home")
     layout_home

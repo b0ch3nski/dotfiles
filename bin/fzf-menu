@@ -66,13 +66,10 @@ power_menu() {
 }
 
 screen_menu() {
-  local -r selection="$(_exec_fzf "Screen layout: " <<< $(printf "[Laptop]\n[Work]\n[Home]\n[TV]"))"
+  local -r selection="$(_exec_fzf "Screen layout: " <<< $(printf "[Laptop]\n[Home]\n[TV]"))"
   case ${selection} in
     "[Laptop]")
       screen-layout laptop
-      ;;
-    "[Work]")
-      screen-layout work
       ;;
     "[Home]")
       screen-layout home
