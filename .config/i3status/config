@@ -13,7 +13,6 @@ order += "disk /data"
 order += "disk /storage"
 order += "wireless wlp3s0"
 order += "ethernet enp0s25"
-order += "path_exists vpn"
 order += "volume master"
 order += "battery 0"
 order += "time"
@@ -61,11 +60,6 @@ wireless wlp3s0 {
 ethernet enp0s25 {
     format_up = "  %speed "
     format_down = "  LAN "
-}
-
-path_exists vpn {
-    format = " 嬨 VPN "
-    path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
 volume master {

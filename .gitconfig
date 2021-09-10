@@ -8,8 +8,6 @@
 	gpgsign = true
 [credential]
 	helper = !git-credential-gopass $@
-[pull]
-	rebase = true
 [push]
 	default = current
 [gitreview]
