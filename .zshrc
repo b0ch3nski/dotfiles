@@ -16,7 +16,7 @@ autoload -Uz compinit
 compinit
 
 HISTFILE=~/.histfile
-HISTSIZE=25000
+HISTSIZE=50000
 SAVEHIST="${HISTSIZE}"
 HISTORY_IGNORE="(ls|ll|cd|pwd|kill)"
 

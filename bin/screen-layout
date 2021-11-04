@@ -3,7 +3,7 @@ set -uo pipefail
 
 layout_laptop() {
   xrandr \
-  --output LVDS-1 --mode 1366x768 --pos 0x0 --rotate normal --scale 1.26x1.26 \
+  --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --scale 1.26x1.26 \
   --output VGA-1 --off \
   --output DP-1 --off \
   --output DP-2 --off \

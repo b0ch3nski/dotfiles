@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+PROP_NAME="${1:-libinput Accel Speed}"
+PROP_VAL="${2:-1}"
+
+xinput --list --id-only | while read -r dev; do
+    if xinput --list-props "${dev}" | grep -q "${PROP_NAME}"; then
+        xinput --set-prop "${dev}" "${PROP_NAME}" "${PROP_VAL}"
+    fi
+done
