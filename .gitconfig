@@ -12,3 +12,9 @@
 	default = current
 [gitreview]
 	remote = origin
+[alias]
+	repos =  !"find -type d -execdir test -d {}/.git \\; -prune -print"
+[pager]
+	branch = false
+[fetch]
+	prune = true
