@@ -1,16 +1,16 @@
-Xft.antialias:                 true
-Xft.autohint:                  false
-Xft.dpi:                       96
-Xft.hinting:                   true
-Xft.hintstyle:                 hintslight
-Xft.lcdfilter:                 lcddefault
-Xft.rgba:                      rgb
+Xft.antialias:          true
+Xft.autohint:           false
+Xft.dpi:                96
+Xft.hinting:            true
+Xft.hintstyle:          hintslight
+Xft.lcdfilter:          lcddefault
+Xft.rgba:               rgb
 
-Xcursor.theme:                 Adwaita
+Xcursor.theme:          Adwaita
 
-alock.background*shade:        100
-alock.background*blur:         60
-alock*frame*input:             #33ff33
-alock*frame*check:             #2e9ef4
-alock*frame*error:             #ff3333
-alock*frame.width:             2
+alock.background*shade: 100
+alock.background*blur:  60
+alock*frame*input:      #007400
+alock*frame*check:      #3b6386
+alock*frame*error:      #df0400
+alock*frame.width:      2

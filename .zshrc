@@ -133,7 +133,7 @@ if [ -f "/usr/share/fzf/key-bindings.zsh" ] && [ -f "/usr/share/fzf/completion.z
   source /usr/share/fzf/key-bindings.zsh
   source /usr/share/fzf/completion.zsh
 
-  export FZF_DEFAULT_OPTS="--height 40% --cycle"
+  export FZF_DEFAULT_OPTS="--height 40% --cycle --color=bg+:6,prompt:1,gutter:-1"
   export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden"
 fi
 

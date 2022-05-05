@@ -1,7 +1,7 @@
 # variables
 set $term alacritty
 set $termf alacritty --class=floating
-set $wallpaper Pictures/Wallpapers/cube.jpg
+set $wallpaper Pictures/Wallpapers/iceberg.jpg
 # use win key as modifier
 set $mod Mod4
 
@@ -125,16 +125,20 @@ bar {
     position top
     tray_output primary
     colors {
-        background #323232
-        statusline #FFFFFF
-        separator #666666
+        background #d9e5f1
+        statusline #33374c
+        separator  #33374c
 
-        focused_workspace #4C7899 #3E515A #FFFFFF
+        focused_workspace  #6a90bf #a1bee0 #000000
+        active_workspace   #3b6386 #a9b5c3 #33374c
+        inactive_workspace #3b6386 #e8e9ec #33374c
     }
 }
 
 # setup colors
-client.focused #4C7899 #3E515A #FFFFFF #2E9EF4 #285577
+client.focused          #6a90bf #a1bee0 #000000 #6a90bf #6a90bf
+client.focused_inactive #3b6386 #a9b5c3 #33374c #484e50 #5f676a
+client.unfocused        #3b6386 #e8e9ec #33374c #292d2e #222222
 
 # setup gaps and borders
 for_window [class="^.*"] border pixel 2
