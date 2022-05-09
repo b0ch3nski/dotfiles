@@ -1,7 +1,20 @@
 # variables
-set $term alacritty
+set_from_resource $background           i3wm.background           #d9e5f1
+set_from_resource $background-focused   i3wm.background-focused   #a1bee0
+set_from_resource $background-inactive  i3wm.background-inactive  #d1d2d4
+set_from_resource $background-unfocused i3wm.background-unfocused #bac7d6
+set_from_resource $border-focused       i3wm.border-focused       #6a90bf
+set_from_resource $border-inactive      i3wm.border-inactive      #3b6386
+set_from_resource $text-focused         i3wm.text-focused         #000000
+set_from_resource $text-inactive        i3wm.text-inactive        #33374c
+set_from_resource $status-good          i3wm.status-good          #007400
+set_from_resource $status-degraded      i3wm.status-degraded      #a09400
+set_from_resource $status-bad           i3wm.status-bad           #df0400
+set_from_resource $wallpaper            i3wm.wallpaper            Pictures/Wallpapers/iceberg.jpg
+
+set $term  alacritty
 set $termf alacritty --class=floating
-set $wallpaper Pictures/Wallpapers/iceberg.jpg
+
 # use win key as modifier
 set $mod Mod4
 
@@ -125,20 +138,20 @@ bar {
     position top
     tray_output primary
     colors {
-        background #d9e5f1
-        statusline #33374c
-        separator  #33374c
+        background $background
+        statusline $text-inactive
+        separator  $text-inactive
 
-        focused_workspace  #6a90bf #a1bee0 #000000
-        active_workspace   #3b6386 #a9b5c3 #33374c
-        inactive_workspace #3b6386 #e8e9ec #33374c
+        focused_workspace  $border-focused  $background-focused   $text-focused
+        active_workspace   $border-inactive $background-inactive  $text-inactive
+        inactive_workspace $border-inactive $background-unfocused $text-inactive
     }
 }
 
 # setup colors
-client.focused          #6a90bf #a1bee0 #000000 #6a90bf #6a90bf
-client.focused_inactive #3b6386 #a9b5c3 #33374c #484e50 #5f676a
-client.unfocused        #3b6386 #e8e9ec #33374c #292d2e #222222
+client.focused          $border-focused  $background-focused   $text-focused  $border-focused  $border-focused
+client.focused_inactive $border-inactive $background-inactive  $text-inactive $border-inactive $border-inactive
+client.unfocused        $border-inactive $background-unfocused $text-inactive $border-inactive $border-inactive
 
 # setup gaps and borders
 for_window [class="^.*"] border pixel 2
@@ -160,13 +173,14 @@ for_window [instance="floating"] floating enable, resize set 550 350, move posit
 for_window [instance="qalculate-gtk"] floating enable
 for_window [instance="gimp"] floating enable
 
-# set wallpaper
+# autostart - always
 exec_always --no-startup-id feh --bg-fill $wallpaper
+exec_always --no-startup-id dunst -frame_color "$border-focused" -lb "$background" -lf "$status-good" -nb "$background" -nf "$text-inactive" -cb "$background" -cf "$status-bad" -cfr "$status-bad" &
 
-# autostart
+# autostart - on boot only
+exec --no-startup-id xsettingsd &
 exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 exec --no-startup-id xss-lock -- alock -auth pam -bg shade &
-exec --no-startup-id dunst &
 exec --no-startup-id nm-applet &
 exec --no-startup-id blueman-applet &
 exec --no-startup-id pcmanfm-qt --daemon-mode &
@@ -200,6 +214,9 @@ bindsym Control+Mod1+Delete exec --no-startup-id $termf -e bin/fzf-menu power
 # screen layout menu bind
 bindsym Control+Mod1+BackSpace exec --no-startup-id $termf -e bin/fzf-menu screen
 
+# color theme menu bind
+bindsym $mod+t exec --no-startup-id $termf -e bin/fzf-menu theme
+
 # select X window to kill bind
 bindsym --release Control+Shift+Escape exec --no-startup-id xkill
 
@@ -209,6 +226,13 @@ bindsym $mod+Mod1+l exec --no-startup-id loginctl lock-session
 # print screen binds
 bindsym Print exec --no-startup-id flameshot gui
 bindsym $mod+Print exec --no-startup-id scrot '%Y-%m-%d_%T.png' -e 'mv $f /tmp/'
+
+# notifications binds
+bindsym Control+space exec --no-startup-id dunstctl close
+bindsym Control+Shift+space exec --no-startup-id dunstctl close-all
+bindsym Control+grave exec --no-startup-id dunstctl history-pop
+bindsym Control+Shift+semicolon exec --no-startup-id dunstctl context
+bindsym Control+Shift+BackSpace exec --no-startup-id dunstctl set-paused toggle
 
 # function keys bind
 bindsym XF86Sleep exec --no-startup-id systemctl suspend

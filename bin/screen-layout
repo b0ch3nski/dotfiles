@@ -47,14 +47,15 @@ case ${1:-} in
   "tv")
     layout_tv
     ;;
-  *) # unknown parameter passed - ignoring
+  *)
+    >&2 echo "Error: unknown parameters: ${@}"
     exit 1
     ;;
 esac
 
 [[ ${?} != 0 ]] && layout_laptop && exit 1
 
-i3-msg restart
+i3-msg --quiet restart
 xset dpms 0 0 600
 
 notify-send "${1^}" "Screen layout enabled" -u low

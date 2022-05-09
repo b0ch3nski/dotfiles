@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+change_xresources_theme() {
+  sed -i 's/\(#include\ "\)[^"]*/\1'"${1}"'/' "${HOME}/.Xresources"
+  xrdb -merge "${HOME}/.Xresources"
+}
+
+change_gtk_theme() {
+  sed -i 's/\(Net\/ThemeName\ "\)[^"]*/\1'"${1}"'/; s/\(Net\/IconThemeName\ "\)[^"]*/\1'"${2}"'/' "${HOME}/.config/xsettingsd/xsettingsd.conf"
+  sed -i 's/\(gtk-theme-name=\).*/\1'"${1}"'/; s/\(gtk-icon-theme-name=\).*/\1'"${2}"'/' "${HOME}/.config/gtk-3.0/settings.ini"
+  sed -i 's/\(gtk-theme-name="\)[^"]*/\1'"${1}"'/; s/\(gtk-icon-theme-name="\)[^"]*/\1'"${2}"'/' "${HOME}/.gtkrc-2.0"
+  gsettings set org.gnome.desktop.interface gtk-theme "${1}"
+  killall -HUP xsettingsd
+}
+
+change_alacritty_theme() {
+  sed -i 's/\(colors:\ \*\).*/\1'"${1}"'/' "${HOME}/.config/alacritty/alacritty.yml"
+}
+
+change_vscode_theme() {
+  sed -i 's/\("workbench.colorTheme":\ "\)[^"]*/\1'"${1}"'/' "${HOME}/.config/Code/User/settings.json"
+}
+
+force_chrome_dark_theme() {
+  local -r param="--force-dark-mode"
+  local -r file="${HOME}/.config/chrome-flags.conf"
+
+  if [ "${1}" = "true" ]; then
+    grep -qE '^'"${param}"'$' "${file}" || echo "${param}" >> "${file}"
+  else
+    sed -i '/'"${param}"'/d' "${file}"
+  fi
+}
+
+light() {
+  change_xresources_theme ".Xresources-light"
+  change_gtk_theme "Materia-light-compact" "breeze"
+  change_alacritty_theme "iceberg_light"
+  change_vscode_theme "Iceberg Light"
+  force_chrome_dark_theme "false"
+}
+
+dark() {
+  change_xresources_theme ".Xresources-dark"
+  change_gtk_theme "Materia-dark-compact" "breeze-dark"
+  change_alacritty_theme "iceberg_dark"
+  change_vscode_theme "Iceberg"
+  force_chrome_dark_theme "true"
+}
+
+case ${1:-} in
+  "light")
+    light
+    ;;
+  "dark")
+    dark
+    ;;
+  *)
+    >&2 echo "Error: unknown parameters: ${@}"
+    exit 1
+    ;;
+esac
+
+killall --wait dunst
+i3-msg --quiet restart
+
+until pgrep --exact dunst &>/dev/null; do sleep 1; done
+notify-send "${1^}" "Color theme enabled" -u low

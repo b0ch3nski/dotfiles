@@ -60,8 +60,6 @@ power_menu() {
     "[Lock]")
       loginctl lock-session
       ;;
-    *) # unknown parameter passed - ignoring
-      ;;
   esac
 }
 
@@ -77,7 +75,17 @@ screen_menu() {
     "[TV]")
       screen-layout tv
       ;;
-    *) # unknown parameter passed - ignoring
+  esac
+}
+
+theme_menu() {
+  local -r selection="$(_exec_fzf "Color theme: " <<< $(printf "[Light]\n[Dark]"))"
+  case ${selection} in
+    "[Light]")
+      color-theme light
+      ;;
+    "[Dark]")
+      color-theme dark
       ;;
   esac
 }
@@ -110,7 +118,11 @@ case ${1:-} in
   "screen")
     screen_menu
     ;;
-  *) # unknown parameter passed - ignoring
+  "theme")
+    theme_menu
+    ;;
+  *)
+    >&2 echo "Error: unknown parameters: ${@}"
     exit 1
     ;;
 esac

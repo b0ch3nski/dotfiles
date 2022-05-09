@@ -1,0 +1,12 @@
+#define _background           #d9e5f1
+#define _background_focused   #a1bee0
+#define _background_inactive  #d1d2d4
+#define _background_unfocused #bac7d6
+#define _border_focused       #6a90bf
+#define _border_inactive      #3b6386
+#define _text_focused         #000000
+#define _text_inactive        #33374c
+#define _status_good          #007400
+#define _status_degraded      #a09400
+#define _status_bad           #df0400
+#define _wallpaper            Pictures/Wallpapers/iceberg.jpg

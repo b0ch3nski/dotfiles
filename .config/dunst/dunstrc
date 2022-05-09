@@ -234,7 +234,7 @@
     #  mesg: Important Messages
     #  info: all unimportant stuff
     # debug: all less than unimportant stuff
-    verbosity = mesg
+    verbosity = info
 
     # Define the corner radius of the notification window
     # in pixel size. If the radius is 0, you have no rounded
@@ -282,7 +282,7 @@
     # * close_all: Close all notifications.
     # These values can be strung together for each mouse event, and
     # will be executed in sequence.
-    mouse_left_click = close_current
+    mouse_left_click = do_action
     mouse_middle_click = close_current
     mouse_right_click = close_current
 
@@ -295,33 +295,6 @@
     # using the resolution and physical size. This might be useful in setups
     # where there are multiple screens with very different dpi values.
     per_monitor_dpi = false
-
-# The internal keyboard shortcut support in dunst is now considered deprecated
-# and should be replaced by dunstctl calls. You can use the configuration of your
-# WM or DE to bind these to shortcuts of your choice.
-# Check the dunstctl manual page for more info.
-[shortcuts]
-
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
-    # Close notification. Equivalent dunstctl command:
-    # dunstctl close
-    close = ctrl+space
-
-    # Close all notifications. Equivalent dunstctl command:
-    # dunstctl close-all
-    close_all = ctrl+shift+space
-
-    # Redisplay last message(s). Equivalent dunstctl command:
-    # dunstctl history-pop
-    history = ctrl+grave
-
-    # Context menu. Equivalent dunstctl command:
-    # dunstctl context
-    context = ctrl+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
@@ -395,9 +368,6 @@
     appname = DeaDBeeF
     history_ignore = yes
     urgency = low
-    background = "#d9e5f1"
-    foreground = "#007400"
-    timeout = 10
 
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client
