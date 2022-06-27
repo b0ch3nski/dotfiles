@@ -41,6 +41,7 @@
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "problems.showCurrentInStatus": true,
     "python.experiments.enabled": false,
+    "python.formatting.provider": "black",
     "python.languageServer": "Default",
     "redhat.telemetry.enabled": false,
     "rest-client.enableTelemetry": false,
