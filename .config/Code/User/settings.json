@@ -36,6 +36,7 @@
     "go.lintTool": "golangci-lint",
     "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/home/bochen/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
     "java.project.importOnFirstTimeStartup": "automatic",
     "maven.executable.preferMavenWrapper": false,
     "merge-conflict.autoNavigateNextConflict.enabled": true,
@@ -49,7 +50,10 @@
     "security.workspace.trust.enabled": false,
     "spellright.documentTypes": [
         "latex",
-        "markdown"
+        "markdown",
+        "plaintext",
+        "tex",
+        "yaml"
     ],
     "spellright.language": [
         "en_US"
