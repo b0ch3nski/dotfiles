@@ -4,13 +4,13 @@ set nocompatible
 set mouse=r
 set noswapfile
 set nobackup
-set autoread
 set history=1000
 set undolevels=1000
+set autoread
+au FocusGained,BufEnter * :checktime
 
 set title
 syntax on
-set background=dark
 set showcmd
 set showmode
 set number
@@ -32,6 +32,9 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+colorscheme iceberg
+set background=light
 
 let NERDTreeNaturalSort=1
 let NERDTreeHighlightCursorline=1

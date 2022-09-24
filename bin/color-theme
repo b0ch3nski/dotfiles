@@ -22,6 +22,10 @@ change_vscode_theme() {
   sed -i 's/\("workbench.colorTheme":\ "\)[^"]*/\1'"${1}"'/' "${HOME}/.config/Code/User/settings.json"
 }
 
+change_vim_background() {
+  sed -i 's/\(set background=\).*/\1'"${1}"'/' "${HOME}/.vimrc"
+}
+
 force_chrome_dark_theme() {
   local -r param="--force-dark-mode"
   local -r file="${HOME}/.config/chrome-flags.conf"
@@ -38,6 +42,7 @@ light() {
   change_gtk_theme "Materia-light-compact" "breeze"
   change_alacritty_theme "iceberg_light"
   change_vscode_theme "Iceberg Light"
+  change_vim_background "light"
   force_chrome_dark_theme "false"
 }
 
@@ -46,6 +51,7 @@ dark() {
   change_gtk_theme "Materia-dark-compact" "breeze-dark"
   change_alacritty_theme "iceberg_dark"
   change_vscode_theme "Iceberg"
+  change_vim_background "dark"
   force_chrome_dark_theme "true"
 }
 
