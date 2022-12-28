@@ -1,24 +1,34 @@
 #!/usr/bin/env bash
-set -eo pipefail
+set -Eeo pipefail
 
-CMD="amixer -D pulse"
-CHN="${1:-Master}"
+case ${1} in
+  "output")
+    CMD="pamixer"
+    ;;
+  "input")
+    CMD="pamixer --default-source"
+    ;;
+  *)
+    >&2 echo "error: ${1}: unknown parameter"
+    exit 1
+    ;;
+esac
 
 case ${2} in
   "inc")
-    ${CMD} -q set ${CHN} "${3:-5}%+" unmute
+    ${CMD} --unmute --increase "${3:-5}"
     ;;
   "dec")
-    ${CMD} -q set ${CHN} "${3:-5}%-" unmute
+    ${CMD} --unmute --decrease "${3:-5}"
     ;;
   "set")
-    ${CMD} -q set ${CHN} "${3:-100}%"
+    ${CMD} --unmute --set-volume "${3:-100}"
     ;;
   "flip")
-    ${CMD} -q set ${CHN} toggle
+    ${CMD} --toggle-mute
     ;;
   *) # unknown parameter passed - ignoring
     ;;
 esac
 
-notify-send "${CHN} volume" -h "int:value:$(${CMD} get ${CHN} | tail -1 | awk -F '[][]' '{if ($4=="off") {$2=0}; print $2+0}')" -u low
+notify-send "${1^} volume" -h "int:value:$(${CMD} --get-volume-human | awk -F '%' '{if ($1=="muted") {$1=0}; print $1}')" -u low
