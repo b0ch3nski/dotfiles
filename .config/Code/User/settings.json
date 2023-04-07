@@ -31,12 +31,17 @@
     "gitlens.codeLens.enabled": false,
     "gitlens.showWelcomeOnInstall": false,
     "gitlens.showWhatsNewAfterUpgrades": false,
+    "go.buildFlags": [
+        "-v"
+    ],
     "go.buildOnSave": "workspace",
     "go.formatTool": "goimports",
-    "go.lintTool": "golangci-lint",
+    "go.survey.prompt": false,
     "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/home/bochen/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
+    "gopls": {
+        "ui.semanticTokens": true
+    },
     "java.project.importOnFirstTimeStartup": "automatic",
     "javascript.updateImportsOnFileMove.enabled": "always",
     "maven.executable.preferMavenWrapper": false,
@@ -47,6 +52,9 @@
     "python.languageServer": "Default",
     "redhat.telemetry.enabled": false,
     "rest-client.enableTelemetry": false,
+    "rest-client.previewOption": "exchange",
+    "rest-client.requestNameAsResponseTabTitle": true,
+    "rest-client.showResponseInDifferentTab": true,
     "search.showLineNumbers": true,
     "security.workspace.trust.enabled": false,
     "spellright.documentTypes": [
