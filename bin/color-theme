@@ -40,6 +40,8 @@ force_chrome_dark_theme() {
 light() {
   change_xresources_theme ".Xresources-light"
   change_gtk_theme "Materia-light-compact" "breeze"
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
+
   change_alacritty_theme "iceberg_light"
   change_vscode_theme "Iceberg Light"
   change_vim_background "light"
@@ -49,6 +51,8 @@ light() {
 dark() {
   change_xresources_theme ".Xresources-dark"
   change_gtk_theme "Materia-dark-compact" "breeze-dark"
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+
   change_alacritty_theme "iceberg_dark"
   change_vscode_theme "Iceberg"
   change_vim_background "dark"
