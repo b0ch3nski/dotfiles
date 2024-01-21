@@ -34,9 +34,13 @@
     "go.buildFlags": [
         "-v"
     ],
-    "go.buildOnSave": "workspace",
     "go.formatTool": "goimports",
     "go.survey.prompt": false,
+    "go.testFlags": [
+        "-v",
+        "-race",
+        "-count=1"
+    ],
     "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
     "gopls": {
@@ -48,8 +52,6 @@
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "problems.showCurrentInStatus": true,
     "python.experiments.enabled": false,
-    "python.formatting.provider": "black",
-    "python.languageServer": "Default",
     "redhat.telemetry.enabled": false,
     "rest-client.enableTelemetry": false,
     "rest-client.previewOption": "exchange",
