@@ -15,7 +15,7 @@ change_gtk_theme() {
 }
 
 change_alacritty_theme() {
-  sed -i 's/\(colors:\ \*\).*/\1'"${1}"'/' "${HOME}/.config/alacritty/alacritty.yml"
+  sed -i 's/\(\.config\/alacritty\/\).*\(\.toml\)/\1'"${1}"'\2/' "${HOME}/.config/alacritty/alacritty.toml"
 }
 
 change_vscode_theme() {
@@ -42,7 +42,7 @@ light() {
   change_gtk_theme "Materia-light-compact" "breeze"
   gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
 
-  change_alacritty_theme "iceberg_light"
+  change_alacritty_theme "iceberg-light"
   change_vscode_theme "Iceberg Light"
   change_vim_background "light"
   force_chrome_dark_theme "false"
@@ -53,7 +53,7 @@ dark() {
   change_gtk_theme "Materia-dark-compact" "breeze-dark"
   gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 
-  change_alacritty_theme "iceberg_dark"
+  change_alacritty_theme "iceberg-dark"
   change_vscode_theme "Iceberg"
   change_vim_background "dark"
   force_chrome_dark_theme "true"

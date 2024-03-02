@@ -1,4 +1,4 @@
-export GOPATH="/data/workspace/golang"
+export GOPATH="/data/.golang"
 export PATH="${GOPATH}/bin:${HOME}/bin:${PATH}"
 
 # enable GnuPG SSH agent

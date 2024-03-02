@@ -41,7 +41,7 @@
         "-race",
         "-count=1"
     ],
-    "go.toolsManagement.autoUpdate": true,
+    "go.toolsManagement.autoUpdate": false,
     "go.useLanguageServer": true,
     "gopls": {
         "ui.semanticTokens": true
@@ -81,11 +81,11 @@
     "window.openFoldersInNewWindow": "on",
     "workbench.colorTheme": "Iceberg Light",
     "workbench.commandPalette.preserveInput": true,
+    "workbench.editor.empty.hint": "hidden",
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.tabSizing": "shrink",
-    "workbench.editor.untitled.hint": "hidden",
     "workbench.enableExperiments": false,
     "workbench.quickOpen.preserveInput": true,
     "workbench.startupEditor": "none",

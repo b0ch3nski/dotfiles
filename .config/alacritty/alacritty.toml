@@ -1,0 +1,48 @@
+import             = [ "~/.config/alacritty/iceberg-light.toml" ]
+working_directory  = "None"
+live_config_reload = true
+ipc_socket         = false
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+position      = "None"
+padding       = { x = 2, y = 2 }
+decorations   = "Full"
+opacity       = 1.0
+dynamic_title = true
+startup_mode  = "Windowed"
+
+[scrolling]
+history    = 10000
+multiplier = 3
+
+[font]
+normal      = { family = "SauceCodePro Nerd Font", style = "Regular" }
+bold        = { family = "SauceCodePro Nerd Font", style = "Bold" }
+italic      = { family = "SauceCodePro Nerd Font", style = "Italic" }
+bold_italic = { family = "SauceCodePro Nerd Font", style = "Bold Italic" }
+size        = 10.0
+
+[bell]
+duration = 0
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style            = { shape = "Block", blinking = "On" }
+blink_interval   = 500
+unfocused_hollow = true
+
+[mouse]
+bindings = [{ mouse = "Middle", action = "PasteSelection" }]
+
+[keyboard]
+bindings = [{ key = "T", mods = "Control|Shift", action = "SpawnNewInstance" },
+            { key = "Home", mods = "Control", action = "ScrollToTop" },
+            { key = "End", mods = "Control", action = "ScrollToBottom" },
+            { key = "Plus", mods = "Control", action = "IncreaseFontSize" },
+            { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+            { key = "0", mods = "Control", action = "ResetFontSize" }]
