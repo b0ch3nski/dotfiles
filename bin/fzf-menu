@@ -2,11 +2,12 @@
 set -euo pipefail
 
 PATH="${0%/*}:${PATH}"
+unset FZF_DEFAULT_OPTS
 
 
 # private library functions
 
-_fzf_wrapper() { echo "fzf --prompt="\"${1}\"" --height=100% --reverse --cycle --color=bg+:6,prompt:1,gutter:-1"; }
+_fzf_wrapper() { echo "fzf --prompt="\"${1}\"" --height='100%' --layout='reverse' --cycle --color='bg+:6,prompt:1,gutter:-1'"; }
 
 _exec_fzf() { eval "$(_fzf_wrapper "${1}")"; }
 
@@ -44,6 +45,10 @@ kill_menu() {
   kill "$(awk '{ print $2 }' <<< "${selection}" | tr "\n" " ")"
   notify-send "$(awk '{ print $5 }' <<< "${selection}")" "Killed process" -u low
 }
+
+docker_log_menu() { docker ps --all --format '{{.Names}}' | _exec_fzf "Follow container logs: " | xargs --no-run-if-empty -I % docker logs --follow %; }
+
+docker_kill_menu() { docker ps --all --format '{{.Names}}' | _exec_fzf "Kill container: " | xargs --no-run-if-empty -I % docker rm --force --volumes %; }
 
 power_menu() {
   local -r selection="$(_exec_fzf "Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Sleep]\n[Lock]"))"
@@ -111,6 +116,12 @@ case ${1:-} in
     ;;
   "kill")
     kill_menu
+    ;;
+  "docker-logs")
+    docker_log_menu
+    ;;
+  "docker-kill")
+    docker_kill_menu
     ;;
   "power")
     power_menu

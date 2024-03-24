@@ -59,7 +59,7 @@ alias :q="exit"
 alias rmdir="rmdir --parents --verbose"
 alias rm="rm -I --verbose --preserve-root --one-file-system"
 alias scrot="scrot --count --delay 3 '/tmp/screen_%Y-%m-%d_%T.png'"
-alias tree="ll --tree --ignore-glob='.git'"
+alias tree="ll --tree --ignore-glob='.git|node_modules'"
 alias unmount="umount"
 
 # pacman aliases
@@ -129,12 +129,13 @@ if [ -f "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" ] && [ "${T
   POWERLEVEL9K_DIR_SHOW_WRITABLE="true"
 fi
 
-if [ -f "/usr/share/fzf/key-bindings.zsh" ] && [ -f "/usr/share/fzf/completion.zsh" ]; then
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
+if command -v fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
 
-  export FZF_DEFAULT_OPTS="--height 40% --cycle --color=bg+:6,prompt:1,gutter:-1"
-  export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden"
+  unset FZF_DEFAULT_COMMAND
+  export FZF_DEFAULT_OPTS="--height='70%' --layout='reverse-list' --info='right' --cycle --color='bg+:6,prompt:1,gutter:-1' --walker='file,hidden,follow' --walker-skip='.git,node_modules' --preview-window='right,70%' --preview='bat --color=always --style=numbers {}'"
+  export FZF_CTRL_R_OPTS="--height='50%' --layout='default' --preview='echo {2..} | bat --color=always --plain --language sh' --preview-window='down,3,wrap'"
+  export FZF_ALT_C_OPTS="--walker='dir,hidden,follow' --preview 'eza --color=always --all --tree {}'"
 fi
 
 [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

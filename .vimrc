@@ -41,12 +41,13 @@ let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[]
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
+let NERDTreeCustomOpenArgs={'file':{'where': 't'}}
 
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 
-map <F2>      :NERDTreeToggle<CR>
-map <C-t>     :tabnew<CR>
-map <C-Right> :tabnext<CR>
-map <C-Left>  :tabprevious<CR>
-map <C-p>     :FZF<CR>
+map <F2>        :NERDTreeToggle<CR>
+map <C-t>       :tabnew<CR>
+map <C-S-Right> :tabnext<CR>
+map <C-S-Left>  :tabprevious<CR>
+map <C-p>       :FZF<CR>

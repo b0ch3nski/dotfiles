@@ -13,6 +13,7 @@
         120
     ],
     "editor.smoothScrolling": true,
+    "editor.stickyScroll.enabled": false,
     "editor.suggest.preview": true,
     "editor.suggestSelection": "first",
     "editor.wordWrapColumn": 120,
