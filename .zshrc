@@ -30,6 +30,7 @@ min() { printf "%s\n" "${@:2}" | sort "${1}" | head -n1; }
 max() { min "${1}r" "${@:2}"; }
 
 # general aliases
+alias bat="bat --paging=always"
 alias chgrp="chgrp --preserve-root"
 alias chmod="chmod --preserve-root"
 alias chown="chown --preserve-root"

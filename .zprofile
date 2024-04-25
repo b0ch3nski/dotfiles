@@ -1,6 +1,9 @@
 export GOPATH="/data/.golang"
 export PATH="${GOPATH}/bin:${HOME}/bin:${PATH}"
 
+# poetry config
+export POETRY_VIRTUALENVS_CREATE=1 POETRY_VIRTUALENVS_IN_PROJECT=1 POETRY_VIRTUALENVS_OPTIONS_NO_PIP=1 POETRY_VIRTUALENVS_OPTIONS_NO_SETUPTOOLS=1
+
 # enable GnuPG SSH agent
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then

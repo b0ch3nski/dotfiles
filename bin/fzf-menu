@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PATH="${0%/*}:${PATH}"
-unset FZF_DEFAULT_OPTS
+export PATH="${0%/*}:${PATH}"
+export FZF_DEFAULT_OPTS="--height='100%' --layout='reverse' --cycle --color='bg+:6,prompt:1,gutter:-1'"
 
 
 # private library functions
 
-_fzf_wrapper() { echo "fzf --prompt="\"${1}\"" --height='100%' --layout='reverse' --cycle --color='bg+:6,prompt:1,gutter:-1'"; }
+_fzf_wrapper() { echo "fzf --prompt="\"${1}\"""; }
 
 _exec_fzf() { eval "$(_fzf_wrapper "${1}")"; }
 
