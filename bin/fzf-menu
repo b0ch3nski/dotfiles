@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
 
-export PATH="${0%/*}:${PATH}"
 export FZF_DEFAULT_OPTS="--height='100%' --layout='reverse' --cycle --color='bg+:6,prompt:1,gutter:-1'"
 
 
@@ -21,7 +20,10 @@ _wmctrl_wrapper() {
 
 # public functions
 
-run_menu() { i3-dmenu-desktop --dmenu="$(_fzf_wrapper "Run application: ")"; }
+run_menu() {
+  local -r selection="$(j4-dmenu-desktop --no-exec --dmenu="$(_fzf_wrapper "Run application: ")")"
+  [[ -n "${selection}" ]] && i3-msg "exec ${selection}"
+}
 
 pass_menu() { gopass list --flat | _exec_fzf "Password store: " | xargs --no-run-if-empty -I % gopass show -c %; }
 
@@ -29,9 +31,7 @@ clip_menu() {
   export CM_LAUNCHER="rofi-script"
 
   local -r selection="$(clipmenu | _exec_fzf "Clipboard content: ")"
-  [[ -z "${selection}" ]] && exit
-
-  clipmenu "${selection}"
+  [[ -n "${selection}" ]] && clipmenu "${selection}"
 }
 
 focus_menu() { _wmctrl_wrapper "Focus" "a"; }
@@ -40,10 +40,10 @@ exit_menu() { _wmctrl_wrapper "Exit" "c"; }
 
 kill_menu() {
   local -r selection="$(ps -u "${USER}" -o pid,pcpu,pmem,comm | sed 1d | _exec_fzf "Kill process: ")"
-  [[ -z "${selection}" ]] && exit
-
-  kill "$(awk '{ print $2 }' <<< "${selection}" | tr "\n" " ")"
-  notify-send "$(awk '{ print $5 }' <<< "${selection}")" "Killed process" -u low
+  if [[ -n "${selection}" ]]; then
+    kill "$(awk '{ print $1 }' <<< "${selection}")"
+    notify-send "$(awk '{ print $4 }' <<< "${selection}")" "Killed process" -u low
+  fi
 }
 
 docker_log_menu() { docker ps --all --format '{{.Names}}' | _exec_fzf "Follow container logs: " | xargs --no-run-if-empty -I % docker logs --follow %; }
