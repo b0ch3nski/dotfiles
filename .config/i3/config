@@ -178,7 +178,7 @@ for_window [title="RealDash"] floating enable
 
 # autostart - always
 exec_always --no-startup-id feh --bg-fill $wallpaper
-exec_always --no-startup-id dunst -frame_color "$border-focused" -lb "$background" -lf "$status-good" -nb "$background" -nf "$text-inactive" -cb "$background" -cf "$status-bad" -cfr "$status-bad" &
+exec_always --no-startup-id dunst &
 
 # autostart - on boot only
 exec --no-startup-id xsettingsd &

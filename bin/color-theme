@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
 
 change_xresources_theme() {
   sed -i 's/\(#include\ "\)[^"]*/\1'"${1}"'/' "${HOME}/.Xresources"
@@ -11,6 +11,7 @@ change_gtk_theme() {
   sed -i 's/\(gtk-theme-name=\).*/\1'"${1}"'/; s/\(gtk-icon-theme-name=\).*/\1'"${2}"'/' "${HOME}/.config/gtk-3.0/settings.ini"
   sed -i 's/\(gtk-theme-name="\)[^"]*/\1'"${1}"'/; s/\(gtk-icon-theme-name="\)[^"]*/\1'"${2}"'/' "${HOME}/.gtkrc-2.0"
   gsettings set org.gnome.desktop.interface gtk-theme "${1}"
+  gsettings set org.gnome.desktop.interface icon-theme "${2}"
   killall -HUP xsettingsd
 }
 
@@ -37,6 +38,16 @@ force_chrome_dark_theme() {
   fi
 }
 
+change_sway_theme() {
+  sed -i 's/\(include themes\/\).*/\1'"${1}"'/' "${HOME}/.config/sway/config"
+  swaymsg --quiet reload
+}
+
+change_dunst_theme() {
+  killall --wait dunst
+  cp -f "${HOME}/.config/dunst/dunstrc.d/${1}" "${HOME}/.config/dunst/dunstrc.d/99-theme.conf"
+}
+
 light() {
   change_xresources_theme ".Xresources-light"
   change_gtk_theme "Materia-light-compact" "breeze"
@@ -46,6 +57,8 @@ light() {
   change_vscode_theme "Iceberg Light"
   change_vim_background "light"
   force_chrome_dark_theme "false"
+  # change_sway_theme "light"
+  change_dunst_theme "light"
 }
 
 dark() {
@@ -57,6 +70,8 @@ dark() {
   change_vscode_theme "Iceberg"
   change_vim_background "dark"
   force_chrome_dark_theme "true"
+  # change_sway_theme "dark"
+  change_dunst_theme "dark"
 }
 
 case ${1:-} in
@@ -72,7 +87,6 @@ case ${1:-} in
     ;;
 esac
 
-killall --wait dunst
 i3-msg --quiet restart
 
 until pgrep --exact dunst &>/dev/null; do sleep 1; done
