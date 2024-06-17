@@ -1,30 +1,8 @@
-#include ".Xresources-light"
-
-Xft.antialias:             true
-Xft.autohint:              false
-Xft.dpi:                   96
-Xft.hinting:               true
-Xft.hintstyle:             hintslight
-Xft.lcdfilter:             lcddefault
-Xft.rgba:                  rgb
-
-Xcursor.theme:             Adwaita
-
-alock.background*blur:     60
-alock*frame*input:         _status_good
-alock*frame*check:         _border_inactive
-alock*frame*error:         _status_bad
-alock*frame.width:         3
-
-i3wm.background:           _background
-i3wm.background-focused:   _background_focused
-i3wm.background-inactive:  _background_inactive
-i3wm.background-unfocused: _background_unfocused
-i3wm.border-focused:       _border_focused
-i3wm.border-inactive:      _border_inactive
-i3wm.text-focused:         _text_focused
-i3wm.text-inactive:        _text_inactive
-i3wm.status-good:          _status_good
-i3wm.status-degraded:      _status_degraded
-i3wm.status-bad:           _status_bad
-i3wm.wallpaper:            _wallpaper
+Xft.antialias: true
+Xft.autohint:  false
+Xft.dpi:       96
+Xft.hinting:   true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.rgba:      rgb
+Xcursor.theme: Adwaita

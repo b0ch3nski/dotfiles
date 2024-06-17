@@ -21,7 +21,7 @@ SAVEHIST="${HISTSIZE}"
 HISTORY_IGNORE="(ls|ll|cd|pwd|kill)"
 
 # fancy functions
-cat-clip() { [[ -f "${1}" ]] && (cat "${1}" | xsel -ib) || echo "${1}: No such file"; }
+cat-clip() { [[ -f "${1}" ]] && (wl-copy < "${1}") || echo "${1}: No such file"; }
 
 hex() { [[ -n "${1}" ]] && printf "%x\n" $1 || print "Usage: hex <number-to-convert>" }
 
@@ -39,8 +39,7 @@ alias cp="cp --interactive --verbose"
 alias df="df --print-type --human-readable"
 alias diff="diff --color=always"
 alias du="du --total --summarize --time --human-readable"
-alias egrep="egrep --color=always"
-alias fgrep="fgrep --color=always"
+alias feh="qview"
 alias free="free --human"
 alias grep="grep --color=always"
 alias ifaces="ip -o -4 addr | awk '{ print \$2,\$4 }' | cut -d/ -f 1 | column -s ' ' -t"
@@ -59,7 +58,7 @@ alias q="clear"
 alias :q="exit"
 alias rmdir="rmdir --parents --verbose"
 alias rm="rm -I --verbose --preserve-root --one-file-system"
-alias scrot="scrot --count --delay 3 '/tmp/screen_%Y-%m-%d_%T.png'"
+alias scrot="grim '/tmp/screen_$(date +'%Y-%m-%d_%H:%M:%S.png')'"
 alias tree="ll --tree --ignore-glob='.git|node_modules'"
 alias unmount="umount"
 

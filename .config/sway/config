@@ -1,0 +1,304 @@
+include /etc/sway/config.d/*
+include themes/light
+
+xwayland force
+
+# setup inputs
+input "*" {
+    xkb_layout   "pl"
+    repeat_delay 250
+    repeat_rate  30
+}
+input type:touchpad {
+    tap            disabled
+    natural_scroll disabled
+}
+
+# variables
+set {
+    $mod   Mod4
+    $term  alacritty
+    $termf alacritty --class=floating
+}
+
+# setup fonts
+font pango:SauceCodePro Nerd Font 10
+
+# key for interacting with floating window (resize, move, etc)
+floating_modifier $mod
+
+# kill window
+bindsym {
+    $mod+Shift+q kill
+    Mod1+F4 kill
+    Ctrl+q exec /bin/true
+}
+
+# change focus
+bindsym {
+    $mod+Up focus up
+    $mod+Down focus down
+    $mod+Left focus left
+    $mod+Right focus right
+}
+
+# change output
+bindsym {
+    $mod+Shift+Up focus output up
+    $mod+Shift+Down focus output down
+    $mod+Shift+Left focus output left
+    $mod+Shift+Right focus output right
+}
+
+# move window
+bindsym {
+    $mod+k move up
+    $mod+l move down
+    $mod+j move left
+    $mod+semicolon move right
+}
+
+# move container to output
+bindsym {
+    $mod+Shift+k move container to output up
+    $mod+Shift+l move container to output down
+    $mod+Shift+j move container to output left
+    $mod+Shift+semicolon move container to output right
+}
+
+# move workspace to output
+bindsym {
+    Control+$mod+k move workspace to output up
+    Control+$mod+l move workspace to output down
+    Control+$mod+j move workspace to output left
+    Control+$mod+semicolon move workspace to output right
+}
+
+# split horizontal / vertical
+bindsym {
+    $mod+h split h
+    $mod+v split v
+}
+
+# change layout
+bindsym {
+    $mod+f floating toggle
+    $mod+Shift+f fullscreen toggle
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
+}
+
+# change focus
+bindsym {
+    $mod+space focus mode_toggle
+    $mod+a focus parent
+    $mod+d focus child
+}
+
+# switch workspaces
+bindsym {
+    $mod+1 workspace number 1
+    $mod+2 workspace number 2
+    $mod+3 workspace number 3
+    $mod+4 workspace number 4
+    $mod+5 workspace number 5
+    $mod+6 workspace number 6
+    $mod+7 workspace number 7
+    $mod+8 workspace number 8
+    $mod+9 workspace number 9
+    $mod+0 workspace number 10
+    $mod+minus workspace number 11
+    $mod+equal workspace number 12
+}
+
+# move container to workspace
+bindsym {
+    $mod+Shift+1 move container to workspace number 1; workspace number 1
+    $mod+Shift+2 move container to workspace number 2; workspace number 2
+    $mod+Shift+3 move container to workspace number 3; workspace number 3
+    $mod+Shift+4 move container to workspace number 4; workspace number 4
+    $mod+Shift+5 move container to workspace number 5; workspace number 5
+    $mod+Shift+6 move container to workspace number 6; workspace number 6
+    $mod+Shift+7 move container to workspace number 7; workspace number 7
+    $mod+Shift+8 move container to workspace number 8; workspace number 8
+    $mod+Shift+9 move container to workspace number 9; workspace number 9
+    $mod+Shift+0 move container to workspace number 10; workspace number 10
+    $mod+Shift+minus move container to workspace number 11; workspace number 11
+    $mod+Shift+equal move container to workspace number 12; workspace number 12
+}
+
+# reload config
+bindsym $mod+Shift+c reload
+
+# resize window
+mode "resize" {
+    bindsym {
+        Up resize shrink height 2 px or 2 ppt
+        Down resize grow height 2 px or 2 ppt
+        Left resize shrink width 2 px or 2 ppt
+        Right resize grow width 2 px or 2 ppt
+        $mod+r mode "default"
+        Return mode "default"
+        Escape mode "default"
+    }
+}
+bindsym $mod+r mode "resize"
+
+# caps lock notification
+mode "caps" {
+    bindsym Caps_Lock mode "default"
+}
+bindsym Caps_Lock mode "caps"
+
+# setup title bars
+titlebar_border_thickness 1
+titlebar_padding 2
+
+# setup status bar
+bar {
+    status_command i3status
+    position top
+    tray_output primary
+    colors {
+        background $background
+        statusline $text-inactive
+        separator  $text-inactive
+
+        focused_workspace  $border-focused  $background-focused   $text-focused
+        active_workspace   $border-inactive $background-inactive  $text-inactive
+        inactive_workspace $border-inactive $background-unfocused $text-inactive
+    }
+}
+
+# setup colors
+client.focused          $border-focused  $background-focused   $text-focused  $border-focused  $border-focused
+client.focused_inactive $border-inactive $background-inactive  $text-inactive $border-inactive $border-inactive
+client.unfocused        $border-inactive $background-unfocused $text-inactive $border-inactive $border-inactive
+
+# setup gaps and borders
+for_window [class="^.*"] border pixel 2
+gaps inner 8
+gaps outer 0
+smart_gaps on
+smart_borders on
+hide_edge_borders --i3 none
+
+# switch to previous workspace quickly
+workspace_auto_back_and_forth yes
+bindsym $mod+z workspace back_and_forth
+bindsym $mod+Shift+z move container to workspace back_and_forth; workspace back_and_forth
+
+# explicit keyboard focus only
+focus_follows_mouse no
+focus_on_window_activation urgent
+
+# drag tiling containers with the mouse
+tiling_drag enable
+
+# application specific settings
+for_window {
+    [title="(?:Open|Save) (?:File|Folder|As)"] floating enable, resize set 70ppt 90ppt, move position center
+    [app_id="floating"] floating enable, resize set 30ppt 35ppt, move position center
+    [window_type="dialog"] floating enable
+    [window_role="dialog"] floating enable
+    [window_role="pop-up"] floating enable
+    [app_id="qalculate-gtk"] floating enable
+    [app_id="gcolor3"] floating enable
+    [app_id="gimp"] floating enable
+}
+
+# autostart - always
+exec_always {
+    xrdb -load ~/.Xresources
+    dunst &
+}
+
+# autostart - on boot only
+exec {
+    xsettingsd &
+    /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+    wl-paste --type text --watch cliphist store &
+    wl-paste --type image --watch cliphist store &
+    nm-applet &
+    blueman-applet &
+    pcmanfm-qt --daemon-mode &
+    flameshot &
+}
+
+# screen locking
+exec swayidle \
+    timeout 600 'hyprlock --quiet' \
+    timeout 15 'if pgrep --exact hyprlock; then swaymsg "output * power off"; fi' resume 'swaymsg "output * power on"' \
+    lock 'hyprlock --quiet --immediate' \
+    before-sleep 'hyprlock --quiet --immediate' \
+    after-resume 'swaymsg "output * power on"'
+
+# terminal binds
+bindsym $mod+grave exec $term
+bindsym $mod+Shift+grave exec $termf
+
+# run menu bind
+bindsym $mod+Return exec $termf -e bin/fzf-menu run
+
+# password menu bind
+bindsym $mod+p exec $termf -e bin/fzf-menu pass
+
+# clipboard manager bind
+bindsym Control+$mod+v exec $termf -e bin/fzf-menu clip
+
+# focus menu bind
+bindsym Mod1+Tab exec $termf -e bin/fzf-menu focus
+
+# exit menu bind
+bindsym $mod+Tab exec $termf -e bin/fzf-menu exit
+
+# kill menu bind
+bindsym $mod+Escape exec $termf -e bin/fzf-menu kill
+
+# power menu bind
+bindsym Control+Mod1+Delete exec $termf -e bin/fzf-menu power
+
+# screen layout menu bind
+bindsym Control+Mod1+BackSpace exec $termf -e bin/fzf-menu screen
+
+# color theme menu bind
+bindsym $mod+t exec $termf -e bin/fzf-menu theme
+
+# lock screen bind
+bindsym $mod+Mod1+l exec loginctl lock-session
+
+# print screen binds
+bindsym Print exec flameshot gui
+bindsym $mod+Print exec grim - | wl-copy
+bindsym Control+Print exec grim "/tmp/screen_$(date +'%Y-%m-%d_%H:%M:%S.png')"
+
+# notifications binds
+bindsym {
+    Control+space exec dunstctl close
+    Control+Shift+space exec dunstctl close-all
+    Control+grave exec dunstctl history-pop
+    Control+Shift+semicolon exec dunstctl context
+    Control+Shift+BackSpace exec dunstctl set-paused toggle
+}
+
+# function keys bind
+bindsym {
+    XF86Sleep exec systemctl suspend
+    XF86Display exec bin/screen-layout laptop
+    XF86MonBrightnessDown exec bin/backlight dec 10
+    XF86MonBrightnessUp exec bin/backlight inc 10
+}
+
+# audio keys bind
+bindsym {
+    XF86AudioLowerVolume exec bin/volume output dec 5
+    XF86AudioRaiseVolume exec bin/volume output inc 5
+    XF86AudioMute exec bin/volume output flip
+    XF86AudioMicMute exec bin/volume input flip
+    XF86AudioPlay exec playerctl play-pause
+    XF86AudioPause exec playerctl play-pause
+    XF86AudioStop exec playerctl stop
+    XF86AudioNext exec playerctl next
+    XF86AudioPrev exec playerctl previous
+}

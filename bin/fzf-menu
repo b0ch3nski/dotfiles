@@ -3,55 +3,35 @@ set -Eeuo pipefail
 
 export FZF_DEFAULT_OPTS="--height='100%' --layout='reverse' --cycle --color='bg+:6,prompt:1,gutter:-1'"
 
-
-# private library functions
-
-_fzf_wrapper() { echo "fzf --prompt="\"${1}\"""; }
-
-_exec_fzf() { eval "$(_fzf_wrapper "${1}")"; }
-
-_wmctrl_wrapper() {
-  local -r selection="$(wmctrl -lpx | awk '!/floating/ { print $3, substr($0, index($0, $6)) }' | _exec_fzf "${1} application: ")"
-  [[ -z "${selection}" ]] && exit
-
-  eval wmctrl -F"${2}" "\"$(awk '{ print substr($0, index($0, $2)) }' <<< "${selection}")\""
-}
+SCREEN_LAYOUTS_PATH="${HOME}/.config/sway/screen-layouts"
 
 
-# public functions
+run_menu() { j4-dmenu-desktop --no-exec --dmenu='fzf --prompt="Run application: "' | xargs -I{} swaymsg "exec {}"; }
 
-run_menu() {
-  local -r selection="$(j4-dmenu-desktop --no-exec --dmenu="$(_fzf_wrapper "Run application: ")")"
-  [[ -n "${selection}" ]] && i3-msg "exec ${selection}"
-}
+pass_menu() { gopass list --flat | fzf --prompt="Password store: " | xargs -I{} gopass show -c "{}"; }
 
-pass_menu() { gopass list --flat | _exec_fzf "Password store: " | xargs --no-run-if-empty -I % gopass show -c %; }
+clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " | cliphist decode | wl-copy; }
 
-clip_menu() {
-  export CM_LAUNCHER="rofi-script"
+_window_switcher() { swaymsg -t get_tree | jq -r 'recurse(.nodes[], .floating_nodes[]) | select(.shell) | "\(.id):\(.app_id // .window_properties.class):\(.name)"' | fzf --prompt="${1^} application: " | cut -d: -f1 | xargs -I{} swaymsg "[con_id={}] ${1}"; }
 
-  local -r selection="$(clipmenu | _exec_fzf "Clipboard content: ")"
-  [[ -n "${selection}" ]] && clipmenu "${selection}"
-}
+focus_menu() { _window_switcher "focus"; }
 
-focus_menu() { _wmctrl_wrapper "Focus" "a"; }
-
-exit_menu() { _wmctrl_wrapper "Exit" "c"; }
+exit_menu() { _window_switcher "kill"; }
 
 kill_menu() {
-  local -r selection="$(ps -u "${USER}" -o pid,pcpu,pmem,comm | sed 1d | _exec_fzf "Kill process: ")"
-  if [[ -n "${selection}" ]]; then
+  local -r selection="$(ps -u "${USER}" -o pid,pcpu,pmem,comm | sed 1d | fzf --prompt="Kill process: ")"
+  if [[ "${selection}" ]]; then
     kill "$(awk '{ print $1 }' <<< "${selection}")"
     notify-send "$(awk '{ print $4 }' <<< "${selection}")" "Killed process" -u low
   fi
 }
 
-docker_log_menu() { docker ps --all --format '{{.Names}}' | _exec_fzf "Follow container logs: " | xargs --no-run-if-empty -I % docker logs --follow %; }
+docker_log_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Follow container logs: " | xargs -I{} docker logs --follow "{}"; }
 
-docker_kill_menu() { docker ps --all --format '{{.Names}}' | _exec_fzf "Kill container: " | xargs --no-run-if-empty -I % docker rm --force --volumes %; }
+docker_kill_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Kill container: " | xargs -I{} docker rm --force --volumes "{}"; }
 
 power_menu() {
-  local -r selection="$(_exec_fzf "Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Sleep]\n[Lock]"))"
+  local -r selection="$(fzf --prompt="Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Sleep]\n[Lock]"))"
   case ${selection} in
     "[Shutdown]")
       systemctl poweroff
@@ -69,22 +49,13 @@ power_menu() {
 }
 
 screen_menu() {
-  local -r selection="$(_exec_fzf "Screen layout: " <<< $(printf "[Laptop]\n[Home]\n[TV]"))"
-  case ${selection} in
-    "[Laptop]")
-      screen-layout laptop
-      ;;
-    "[Home]")
-      screen-layout home
-      ;;
-    "[TV]")
-      screen-layout tv
-      ;;
-  esac
+  local -r selection="$(find "${SCREEN_LAYOUTS_PATH}" -type f -printf '[%f]\n' | fzf --prompt="Screen layout: " | tr -d "[]")"
+  [[ "${selection}" ]] && swaymsg "$(cat ${SCREEN_LAYOUTS_PATH}/${selection})"
+  notify-send "${selection}" "Screen layout enabled" -u low
 }
 
 theme_menu() {
-  local -r selection="$(_exec_fzf "Color theme: " <<< $(printf "[Light]\n[Dark]"))"
+  local -r selection="$(fzf --prompt="Color theme: " <<< $(printf "[Light]\n[Dark]"))"
   case ${selection} in
     "[Light]")
       color-theme light
