@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+change_qt_theme() {
+  for file in "${HOME}/.config/qt6ct/qt6ct.conf" "${HOME}/.config/qt5ct/qt5ct.conf"; do
+    sed -i 's/\(^style=\).*/\1'"${1}"'/; s/\(^icon_theme=\).*/\1'"${2}"'/' "${file}"
+  done
+}
+
 change_gtk_theme() {
-  sed -i 's/\(Net\/ThemeName\ "\)[^"]*/\1'"${1}"'/; s/\(Net\/IconThemeName\ "\)[^"]*/\1'"${2}"'/' "${HOME}/.config/xsettingsd/xsettingsd.conf"
-  sed -i 's/\(gtk-theme-name=\).*/\1'"${1}"'/; s/\(gtk-icon-theme-name=\).*/\1'"${2}"'/' "${HOME}/.config/gtk-3.0/settings.ini"
-  sed -i 's/\(gtk-theme-name="\)[^"]*/\1'"${1}"'/; s/\(gtk-icon-theme-name="\)[^"]*/\1'"${2}"'/' "${HOME}/.gtkrc-2.0"
+  sed -i 's/\(^Net\/ThemeName\ "\)[^"]*/\1'"${1}"'/; s/\(^Net\/IconThemeName\ "\)[^"]*/\1'"${2}"'/' "${HOME}/.config/xsettingsd/xsettingsd.conf"
+  sed -i 's/\(^gtk-theme-name=\).*/\1'"${1}"'/; s/\(^gtk-icon-theme-name=\).*/\1'"${2}"'/' "${HOME}/.config/gtk-3.0/settings.ini"
+  sed -i 's/\(^gtk-theme-name="\)[^"]*/\1'"${1}"'/; s/\(^gtk-icon-theme-name="\)[^"]*/\1'"${2}"'/' "${HOME}/.gtkrc-2.0"
   gsettings set org.gnome.desktop.interface gtk-theme "${1}"
   gsettings set org.gnome.desktop.interface icon-theme "${2}"
   killall -HUP xsettingsd
@@ -14,7 +20,7 @@ change_alacritty_theme() { sed -i 's/\(\.config\/alacritty\/\).*\(\.toml\)/\1'"$
 
 change_vscode_theme() { sed -i 's/\("workbench.colorTheme":\ "\)[^"]*/\1'"${1}"'/' "${HOME}/.config/Code/User/settings.json"; }
 
-change_vim_background() { sed -i 's/\(set background=\).*/\1'"${1}"'/' "${HOME}/.vimrc"; }
+change_vim_background() { sed -i 's/\(^set background=\).*/\1'"${1}"'/' "${HOME}/.vimrc"; }
 
 force_chrome_dark_theme() {
   local -r param="--force-dark-mode"
@@ -29,15 +35,17 @@ force_chrome_dark_theme() {
 
 change_dunst_theme() {
   killall --wait dunst
-  cp -f "${HOME}/.config/dunst/dunstrc.d/${1}" "${HOME}/.config/dunst/dunstrc.d/99-theme.conf"
+  ln --symbolic --force "${HOME}/.config/dunst/dunstrc.d/${1}" "${HOME}/.config/dunst/dunstrc.d/99-theme.conf"
 }
 
 change_sway_theme() {
-  sed -i 's/\(include themes\/\).*/\1'"${1}"'/' "${HOME}/.config/sway/config"
+  sed -i 's/\(^include themes\/\).*/\1'"${1}"'/' "${HOME}/.config/sway/config"
+  ln --symbolic --force "${2}" "${HOME}/.config/sway/bg"
   swaymsg --quiet reload
 }
 
 light() {
+  change_qt_theme "kvantum" "breeze"
   change_gtk_theme "Materia-light-compact" "breeze"
   gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
 
@@ -46,10 +54,11 @@ light() {
   change_vim_background "light"
   force_chrome_dark_theme "false"
   change_dunst_theme "light"
-  change_sway_theme "light"
+  change_sway_theme "light" "${HOME}/Pictures/Wallpapers/iceberg.jpg"
 }
 
 dark() {
+  change_qt_theme "kvantum-dark" "breeze-dark"
   change_gtk_theme "Materia-dark-compact" "breeze-dark"
   gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 
@@ -58,7 +67,7 @@ dark() {
   change_vim_background "dark"
   force_chrome_dark_theme "true"
   change_dunst_theme "dark"
-  change_sway_theme "dark"
+  change_sway_theme "dark" "${HOME}/Pictures/Wallpapers/cube.jpg"
 }
 
 case ${1:-} in
@@ -74,5 +83,5 @@ case ${1:-} in
     ;;
 esac
 
-until pgrep --exact dunst &>/dev/null; do sleep 0.2; done
+until pgrep --exact dunst &>/dev/null; do sleep 0.1; done
 notify-send "${1^}" "Color theme enabled" -u low

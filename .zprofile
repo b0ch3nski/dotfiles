@@ -25,6 +25,7 @@ export GPG_TTY="$(tty)"
 
 # start WM on login
 if systemctl -q is-active graphical.target && [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  export XDG_SESSION_TYPE="wayland" XDG_CURRENT_DESKTOP="sway"
+  export XDG_SESSION_TYPE="wayland" XDG_CURRENT_DESKTOP="sway" # WLR_DRM_NO_ATOMIC=1
   exec sway
+  # exec sway -d > /tmp/sway.log 2>&1
 fi

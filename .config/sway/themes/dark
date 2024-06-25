@@ -11,4 +11,3 @@ set {
     $status-degraded      #ffff00
     $status-bad           #ff3333
 }
-output "*" bg ~/Pictures/Wallpapers/cube.jpg fill

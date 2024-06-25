@@ -1,5 +1,6 @@
 include /etc/sway/config.d/*
 include themes/light
+output "*" bg ~/.config/sway/bg fill
 
 xwayland force
 
@@ -198,11 +199,12 @@ tiling_drag enable
 
 # application specific settings
 for_window {
-    [title="(?:Open|Save) (?:File|Folder|As)"] floating enable, resize set 70ppt 90ppt, move position center
-    [app_id="floating"] floating enable, resize set 30ppt 35ppt, move position center
+    [title="(?:Open|Save|All) (?:[Ff]ile|[Ff]older|[Dd]irectory|[Aa]s).*"] floating enable, resize set 70ppt 90ppt, move position center
+    [app_id="floating"] floating enable, resize set 550 350, move position center
     [window_type="dialog"] floating enable
     [window_role="dialog"] floating enable
     [window_role="pop-up"] floating enable
+    [app_id="flameshot"] fullscreen enable global
     [app_id="qalculate-gtk"] floating enable
     [app_id="gcolor3"] floating enable
     [app_id="gimp"] floating enable
@@ -222,17 +224,17 @@ exec {
     wl-paste --type image --watch cliphist store &
     nm-applet &
     blueman-applet &
-    pcmanfm-qt --daemon-mode &
     flameshot &
 }
 
 # screen locking
-exec swayidle \
-    timeout 600 'hyprlock --quiet' \
-    timeout 15 'if pgrep --exact hyprlock; then swaymsg "output * power off"; fi' resume 'swaymsg "output * power on"' \
-    lock 'hyprlock --quiet --immediate' \
-    before-sleep 'hyprlock --quiet --immediate' \
-    after-resume 'swaymsg "output * power on"'
+#set $locker swaylock --image="~/.config/sway/bg"
+#exec swayidle \
+#   timeout 600 '$locker' \
+#   timeout 15 'pgrep --exact swaylock && swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#   lock '$locker' \
+#   before-sleep '$locker' \
+#   after-resume 'swaymsg "output * power on"'
 
 # terminal binds
 bindsym $mod+grave exec $term

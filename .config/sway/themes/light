@@ -11,4 +11,3 @@ set {
     $status-degraded      #a09400
     $status-bad           #df0400
 }
-output "*" bg ~/Pictures/Wallpapers/iceberg.jpg fill

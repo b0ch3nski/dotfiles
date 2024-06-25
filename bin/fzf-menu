@@ -12,7 +12,7 @@ pass_menu() { gopass list --flat | fzf --prompt="Password store: " | xargs -I{} 
 
 clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " | cliphist decode | wl-copy; }
 
-_window_switcher() { swaymsg -t get_tree | jq -r 'recurse(.nodes[], .floating_nodes[]) | select(.shell) | "\(.id):\(.app_id // .window_properties.class):\(.name)"' | fzf --prompt="${1^} application: " | cut -d: -f1 | xargs -I{} swaymsg "[con_id={}] ${1}"; }
+_window_switcher() { swaymsg -t get_tree | jq -r 'recurse(.nodes[], .floating_nodes[]) | select(.shell) | "\(.id)\t\(.app_id // .window_properties.class)\t\(.name)"' | column -t -s$'\t' -o$'\t' | fzf --delimiter=$'\t' --with-nth=2,3 --prompt="${1^} application: " | cut -d$'\t' -f1 | xargs -I{} swaymsg "[con_id={}] ${1}"; }
 
 focus_menu() { _window_switcher "focus"; }
 
