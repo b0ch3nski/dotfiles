@@ -1,0 +1,102 @@
+@import url("themes/iceberg-dark.css");
+
+* {
+    border: none;
+    border-radius: 4px;
+    margin: 1px 4px 1px 4px;
+    padding: 0;
+}
+
+#waybar,
+tooltip {
+    background: transparent;
+    color: @text-inactive;
+    font-family: SauceCodePro Nerd Font;
+    font-size: 13px;
+}
+
+.module,
+tooltip {
+    background: @background;
+    border: 1px solid @border;
+    padding: 0px 10px 0px 10px;
+}
+
+.modules-left {
+    margin-left: 0;
+}
+
+.modules-right {
+    margin-right: 0;
+}
+
+#workspaces,
+#mode,
+#window,
+#tray {
+    padding: 0px 5px 0px 5px;
+}
+
+#workspaces button {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    min-width: 30px;
+    min-height: 0;
+    color: @text-inactive;
+}
+
+#workspaces button.visible {
+    background: @inactive;
+}
+
+#workspaces button.focused {
+    background: @focused;
+    color: @text-focused;
+}
+
+#workspaces button.urgent,
+#mode {
+    background: @red;
+    color: @text-focused;
+}
+
+window#waybar.empty #window {
+    background: transparent;
+    color: transparent;
+    border: none;
+}
+
+#network {
+    color: @green;
+}
+
+#pulseaudio.bluetooth {
+    color: @blue;
+}
+
+#cpu.critical,
+#temperature.critical,
+#memory.critical,
+#disk.critical,
+#battery.critical,
+#network.disabled,
+#network.disconnected {
+    color: @red;
+}
+
+#cpu.warning,
+#memory.warning,
+#disk.warning,
+#battery.warning,
+#pulseaudio.muted {
+    color: @orange;
+}
+
+#tray menu {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    font-family: Noto Sans;
+    font-size: 13px;
+}

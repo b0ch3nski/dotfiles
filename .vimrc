@@ -34,7 +34,7 @@ set ignorecase
 set smartcase
 
 colorscheme iceberg
-set background=light
+set background=dark
 
 let NERDTreeNaturalSort=1
 let NERDTreeHighlightCursorline=1

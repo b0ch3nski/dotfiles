@@ -1,0 +1,131 @@
+{
+    "position": "top",
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/window"
+    ],
+    "modules-right": [
+        "cpu",
+        "temperature",
+        "load",
+        "memory",
+        "disk",
+        "network#wifi",
+        "network#ethernet",
+        "network#vpn",
+        "pulseaudio",
+        "battery",
+        "tray",
+        "clock"
+    ],
+    "cpu": {
+        "interval": 3,
+        "states": {
+            "warning": 75,
+            "critical": 90
+        },
+        "format": "{icon} {usage}% {avg_frequency:0.2f} GHz",
+        "format-icons": [
+            "▁",
+            "▂",
+            "▃",
+            "▄",
+            "▅",
+            "▆",
+            "▇",
+            "█"
+        ]
+    },
+    "temperature": {
+        "interval": 5,
+        "thermal-zone": 0,
+        "format": " {temperatureC}°C",
+        "critical-threshold": 90
+    },
+    "load": {
+        "interval": 5,
+        "format": " {load1:0.2f}"
+    },
+    "memory": {
+        "interval": 5,
+        "states": {
+            "warning": 80,
+            "critical": 95
+        },
+        "format": " {avail} GiB",
+        "tooltip-format": "{used:0.2f} GiB used out of {total:0.2f} GiB ({percentage}%)"
+    },
+    "disk": {
+        "interval": 15,
+        "states": {
+            "warning": 75,
+            "critical": 90
+        },
+        "path": "/",
+        "format": " {specific_free:0.2f} GiB",
+        "tooltip-format": "{path}: {specific_used:0.2f} GiB used out of {specific_total:0.2f} GiB ({percentage_used}%)",
+        "unit": "GiB"
+    },
+    "network#wifi": {
+        "interval": 15,
+        "interface": "wlp3s0",
+        "format-wifi": " {essid} {signalStrength}%",
+        "format-disconnected": " WiFi",
+        "tooltip-format": "{ifname} {ipaddr}",
+        "tooltip-format-disconnected": "Offline",
+        "on-click": "nm-connection-editor"
+    },
+    "network#ethernet": {
+        "interval": 15,
+        "interface": "enp0s25",
+        "format": " LAN",
+        "tooltip-format": "{ifname} {ipaddr}",
+        "tooltip-format-disconnected": "Offline",
+        "on-click": "nm-connection-editor"
+    },
+    "network#vpn": {
+        "interval": 15,
+        "interface": "tun0",
+        "format": "嬨 VPN",
+        "tooltip-format": "{ifname} {ipaddr}",
+        "tooltip-format-disconnected": "Offline"
+    },
+    "pulseaudio": {
+        "format": " {volume}%",
+        "format-muted": " MUTE",
+        "scroll-step": 5,
+        "on-click": "pavucontrol"
+    },
+    "battery": {
+        "interval": 15,
+        "states": {
+            "warning": 35,
+            "critical": 20
+        },
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "format": "{icon} {capacity}% {timeTo}",
+        "format-full": "{icon} {capacity}%",
+        "format-plugged": "{icon} {capacity}%",
+        "tooltip-format": "Power: {power}W",
+        "tooltip-format-full": "Cycles: {cycles}\nHealth: {health}",
+        "tooltip-format-plugged": "Cycles: {cycles}\nHealth: {health}"
+    },
+    "tray": {
+        "show-passive-items": true,
+        "icon-size": 16
+    },
+    "clock": {
+        "format": " {:%d.%m.%Y  %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month"
+        }
+    }
+}

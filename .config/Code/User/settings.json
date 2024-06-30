@@ -80,7 +80,7 @@
     "window.autoDetectHighContrast": false,
     "window.newWindowDimensions": "maximized",
     "window.openFoldersInNewWindow": "on",
-    "workbench.colorTheme": "Iceberg Light",
+    "workbench.colorTheme": "Iceberg",
     "workbench.commandPalette.preserveInput": true,
     "workbench.editor.empty.hint": "hidden",
     "workbench.editor.enablePreview": false,

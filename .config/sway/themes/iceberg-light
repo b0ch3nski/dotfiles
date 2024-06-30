@@ -1,0 +1,10 @@
+set {
+    $background-focused   #98bacb
+    $background-inactive  #cad0de
+    $background-unfocused #bec1c9
+    $background-urgent    #cc517a
+    $border-focused       #3f83a6
+    $border-inactive      #8389a3
+    $text-focused         #000000
+    $text-inactive        #33374c
+}

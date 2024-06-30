@@ -33,6 +33,10 @@ force_chrome_dark_theme() {
   fi
 }
 
+change_waybar_theme() {
+  sed -i 's/\(^@import url("themes\/\)[^");]*/\1'"${1}.css"'/' "${HOME}/.config/waybar/style.css"
+}
+
 change_dunst_theme() {
   killall --wait dunst
   ln --symbolic --force "${HOME}/.config/dunst/dunstrc.d/${1}" "${HOME}/.config/dunst/dunstrc.d/99-theme.conf"
@@ -53,8 +57,9 @@ light() {
   change_vscode_theme "Iceberg Light"
   change_vim_background "light"
   force_chrome_dark_theme "false"
-  change_dunst_theme "light"
-  change_sway_theme "light" "${HOME}/Pictures/Wallpapers/iceberg.jpg"
+  change_waybar_theme "iceberg-light"
+  change_dunst_theme "iceberg-light"
+  change_sway_theme "iceberg-light" "${HOME}/Pictures/Wallpapers/iceberg-light.jpg"
 }
 
 dark() {
@@ -66,8 +71,9 @@ dark() {
   change_vscode_theme "Iceberg"
   change_vim_background "dark"
   force_chrome_dark_theme "true"
-  change_dunst_theme "dark"
-  change_sway_theme "dark" "${HOME}/Pictures/Wallpapers/cube.jpg"
+  change_waybar_theme "iceberg-dark"
+  change_dunst_theme "iceberg-dark"
+  change_sway_theme "iceberg-dark" "${HOME}/Pictures/Wallpapers/iceberg-dark.jpg"
 }
 
 case ${1:-} in

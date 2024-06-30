@@ -1,5 +1,5 @@
 include /etc/sway/config.d/*
-include themes/light
+include themes/iceberg-dark
 output "*" bg ~/.config/sway/bg fill
 
 xwayland force
@@ -19,7 +19,7 @@ input type:touchpad {
 set {
     $mod   Mod4
     $term  alacritty
-    $termf alacritty --class=floating
+    $termf alacritty --class="termfloat"
 }
 
 # setup fonts
@@ -157,25 +157,13 @@ titlebar_border_thickness 1
 titlebar_padding 2
 
 # setup status bar
-bar {
-    status_command i3status
-    position top
-    tray_output primary
-    colors {
-        background $background
-        statusline $text-inactive
-        separator  $text-inactive
+bar swaybar_command waybar
 
-        focused_workspace  $border-focused  $background-focused   $text-focused
-        active_workspace   $border-inactive $background-inactive  $text-inactive
-        inactive_workspace $border-inactive $background-unfocused $text-inactive
-    }
-}
-
-# setup colors
-client.focused          $border-focused  $background-focused   $text-focused  $border-focused  $border-focused
-client.focused_inactive $border-inactive $background-inactive  $text-inactive $border-inactive $border-inactive
-client.unfocused        $border-inactive $background-unfocused $text-inactive $border-inactive $border-inactive
+# setup colors          border           background            text           indicator          child_border
+client.focused          $border-focused  $background-focused   $text-focused  $border-focused    $border-focused
+client.focused_inactive $border-inactive $background-inactive  $text-inactive $border-inactive   $border-inactive
+client.unfocused        $border-inactive $background-unfocused $text-inactive $border-inactive   $border-inactive
+client.urgent           $border-inactive $background-urgent    $text-focused  $background-urgent $background-urgent
 
 # setup gaps and borders
 for_window [class="^.*"] border pixel 2
@@ -200,14 +188,14 @@ tiling_drag enable
 # application specific settings
 for_window {
     [title="(?:Open|Save|All) (?:[Ff]ile|[Ff]older|[Dd]irectory|[Aa]s).*"] floating enable, resize set 70ppt 90ppt, move position center
-    [app_id="floating"] floating enable, resize set 550 350, move position center
+    [app_id="termfloat"] floating enable, resize set 550 350, move position center
     [window_type="dialog"] floating enable
     [window_role="dialog"] floating enable
     [window_role="pop-up"] floating enable
     [app_id="flameshot"] fullscreen enable global
     [app_id="qalculate-gtk"] floating enable
     [app_id="gcolor3"] floating enable
-    [app_id="gimp"] floating enable
+    [instance="gimp-*"] floating enable
 }
 
 # autostart - always

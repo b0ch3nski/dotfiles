@@ -1,22 +1,13 @@
-import             = [ "~/.config/alacritty/iceberg-light.toml" ]
-working_directory  = "None"
+import             = [ "~/.config/alacritty/iceberg-dark.toml" ]
 live_config_reload = true
 ipc_socket         = false
 
-[env]
-TERM = "xterm-256color"
-
 [window]
-position      = "None"
-padding       = { x = 2, y = 2 }
-decorations   = "Full"
-opacity       = 1.0
-dynamic_title = true
-startup_mode  = "Windowed"
+padding     = { x = 2, y = 2 }
+decorations = "None"
 
 [scrolling]
-history    = 10000
-multiplier = 3
+history = 10000
 
 [font]
 normal      = { family = "SauceCodePro Nerd Font", style = "Regular" }
@@ -25,16 +16,12 @@ italic      = { family = "SauceCodePro Nerd Font", style = "Italic" }
 bold_italic = { family = "SauceCodePro Nerd Font", style = "Bold Italic" }
 size        = 10.0
 
-[bell]
-duration = 0
-
 [selection]
 save_to_clipboard = true
 
 [cursor]
-style            = { shape = "Block", blinking = "On" }
-blink_interval   = 500
-unfocused_hollow = true
+style          = { shape = "Block", blinking = "On" }
+blink_interval = 500
 
 [mouse]
 bindings = [{ mouse = "Middle", action = "PasteSelection" }]
