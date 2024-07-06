@@ -133,7 +133,7 @@ if command -v fzf &> /dev/null; then
   eval "$(fzf --zsh)"
 
   unset FZF_DEFAULT_COMMAND
-  export FZF_DEFAULT_OPTS="--height='70%' --layout='reverse-list' --info='right' --cycle --color='bg+:6,prompt:1,gutter:-1' --walker='file,hidden,follow' --walker-skip='.git,node_modules' --preview-window='right,70%' --preview='bat --color=always --style=numbers {}'"
+  export FZF_DEFAULT_OPTS="--height='70%' --layout='reverse-list' --info='right' --cycle --color='bg+:6,fg+:0,hl+:-1,prompt:1,gutter:-1' --walker='file,hidden,follow' --walker-skip='.git,node_modules' --preview-window='right,70%' --preview='bat --color=always --style=numbers {}'"
   export FZF_CTRL_R_OPTS="--height='50%' --layout='default' --preview='echo {2..} | bat --color=always --plain --language sh' --preview-window='down,3,wrap'"
   export FZF_ALT_C_OPTS="--walker='dir,hidden,follow' --preview 'eza --color=always --all --tree {}'"
 fi
