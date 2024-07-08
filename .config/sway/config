@@ -194,7 +194,7 @@ for_window {
     [window_role="pop-up"] floating enable
     [app_id="flameshot"] fullscreen enable global
     [app_id="qalculate-gtk"] floating enable
-    [app_id="gcolor3"] floating enable
+    [instance="pinentry-gtk"] floating enable
     [instance="gimp-*"] floating enable
 }
 

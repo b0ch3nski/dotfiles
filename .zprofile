@@ -1,4 +1,4 @@
-export GOPATH="/data/.golang"
+export GOPATH="${HOME}/.golang"
 export PATH="${GOPATH}/bin:${HOME}/bin:${PATH}"
 
 # electron config
