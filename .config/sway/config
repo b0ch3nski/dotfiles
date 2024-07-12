@@ -200,6 +200,7 @@ for_window {
 
 # autostart - always
 exec_always {
+    duo-screen-handler
     xrdb -load ~/.Xresources
     dunst &
 }
@@ -226,6 +227,9 @@ exec swayidle \
     lock '$locker' \
     before-sleep '$locker' \
     after-resume '$output-on'
+
+# handle lid opening
+bindswitch --locked lid:on duo-screen-handler
 
 # terminal binds
 bindsym $mod+grave exec $term
@@ -278,7 +282,6 @@ bindsym {
 # function keys bind
 bindsym {
     XF86Sleep exec systemctl suspend
-    XF86Display exec bin/screen-layout laptop
     XF86MonBrightnessDown exec bin/backlight dec 10
     XF86MonBrightnessUp exec bin/backlight inc 10
 }

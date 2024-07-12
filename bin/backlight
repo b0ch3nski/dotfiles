@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
-set -eo pipefail
+set -Eeo pipefail
 
-CMD="brightnessctl --device=intel_backlight"
+brightness() {
+  for target in "intel_backlight" "card1-eDP-2-backlight"; do
+    brightnessctl --device="${target}" -q set "${1}"
+  done
+}
 
 case ${1} in
   "inc")
-    ${CMD} -q set "+${2:-5}%"
+    brightness "+${2:-5}%"
     ;;
   "dec")
-    ${CMD} -q set "${2:-5}%-"
+    brightness "${2:-5}%-"
     ;;
   "set")
-    ${CMD} -q set "${2:-100}%"
+    brightness "${2:-100}%"
     ;;
   *) # unknown parameter passed - ignoring
     ;;
 esac
 
-notify-send "Screen backlight" -h "int:value:$(${CMD} -m info | awk -F ',' '{ print $4+0 }')" -u low
+notify-send "Screen backlight" -h "int:value:$(brightnessctl -m info | awk -F ',' '{ print $4+0 }')" -u low

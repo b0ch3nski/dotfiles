@@ -35,7 +35,8 @@
             "▆",
             "▇",
             "█"
-        ]
+        ],
+        "on-click": "gnome-system-monitor"
     },
     "temperature": {
         "interval": 5,
@@ -69,7 +70,7 @@
     },
     "network#wifi": {
         "interval": 15,
-        "interface": "wlp3s0",
+        "interface": "wl*",
         "format-wifi": " {essid} {signalStrength}%",
         "format-disconnected": " WiFi",
         "tooltip-format": "{ifname} {ipaddr}",
@@ -78,7 +79,7 @@
     },
     "network#ethernet": {
         "interval": 15,
-        "interface": "enp0s25",
+        "interface": "en*",
         "format": " LAN",
         "tooltip-format": "{ifname} {ipaddr}",
         "tooltip-format-disconnected": "Offline",
@@ -99,6 +100,7 @@
     },
     "battery": {
         "interval": 15,
+        "bat": "BAT0",
         "states": {
             "warning": 35,
             "critical": 20
@@ -110,10 +112,10 @@
             "",
             ""
         ],
-        "format": "{icon} {capacity}% {timeTo}",
+        "format": "{icon} {capacity}%",
         "format-full": "{icon} {capacity}%",
         "format-plugged": "{icon} {capacity}%",
-        "tooltip-format": "Power: {power}W",
+        "tooltip-format": "{timeTo}\nPower: {power}W",
         "tooltip-format-full": "Cycles: {cycles}\nHealth: {health}",
         "tooltip-format-plugged": "Cycles: {cycles}\nHealth: {health}"
     },

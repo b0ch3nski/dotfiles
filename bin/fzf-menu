@@ -31,13 +31,16 @@ docker_log_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Follow
 docker_kill_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Kill container: " | xargs -I{} docker rm --force --volumes "{}"; }
 
 power_menu() {
-  local -r selection="$(fzf --prompt="Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Sleep]\n[Lock]"))"
+  local -r selection="$(fzf --prompt="Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Reboot to UEFI]\n[Sleep]\n[Lock]"))"
   case ${selection} in
     "[Shutdown]")
       systemctl poweroff
       ;;
     "[Reboot]")
       systemctl reboot
+      ;;
+    "[Reboot to UEFI]")
+      systemctl reboot --firmware-setup
       ;;
     "[Sleep]")
       systemctl suspend
@@ -49,7 +52,7 @@ power_menu() {
 }
 
 screen_menu() {
-  local -r selection="$(find "${SCREEN_LAYOUTS_PATH}" -type f -printf '[%f]\n' | fzf --prompt="Screen layout: " | tr -d "[]")"
+  local -r selection="$(find "${SCREEN_LAYOUTS_PATH}" -type f -printf '[%f]\n' | sort | fzf --prompt="Screen layout: " | tr -d "[]")"
   [[ "${selection}" ]] && swaymsg "$(cat ${SCREEN_LAYOUTS_PATH}/${selection})"
   notify-send "${selection}" "Screen layout enabled" -u low
 }
