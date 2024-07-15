@@ -15,6 +15,7 @@
         "network#ethernet",
         "network#vpn",
         "pulseaudio",
+        "bluetooth",
         "battery",
         "tray",
         "clock"
@@ -73,15 +74,15 @@
         "interface": "wl*",
         "format-wifi": " {essid} {signalStrength}%",
         "format-disconnected": " WiFi",
-        "tooltip-format": "{ifname} {ipaddr}",
+        "tooltip-format": "{ifname}: {ipaddr}",
         "tooltip-format-disconnected": "Offline",
         "on-click": "nm-connection-editor"
     },
     "network#ethernet": {
         "interval": 15,
         "interface": "en*",
-        "format": " LAN",
-        "tooltip-format": "{ifname} {ipaddr}",
+        "format-ethernet": " LAN",
+        "tooltip-format": "{ifname}: {ipaddr}",
         "tooltip-format-disconnected": "Offline",
         "on-click": "nm-connection-editor"
     },
@@ -89,14 +90,25 @@
         "interval": 15,
         "interface": "tun0",
         "format": "嬨 VPN",
-        "tooltip-format": "{ifname} {ipaddr}",
-        "tooltip-format-disconnected": "Offline"
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "tooltip-format-disconnected": "Offline",
+        "tooltip-format-disabled": "Offline"
     },
     "pulseaudio": {
         "format": " {volume}%",
         "format-muted": " MUTE",
         "scroll-step": 5,
         "on-click": "pavucontrol"
+    },
+    "bluetooth": {
+        "format": " BT",
+        "format-connected": " {num_connections}",
+        "format-connected-battery": " {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}: {controller_address}",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
+        "on-click": "blueman-manager"
     },
     "battery": {
         "interval": 15,

@@ -67,29 +67,36 @@ window#waybar.empty #window {
     border: none;
 }
 
-#network {
-    color: @green;
+#pulseaudio.bluetooth,
+#bluetooth {
+    color: @blue;
 }
 
-#pulseaudio.bluetooth {
-    color: @blue;
+#network,
+#bluetooth.on,
+#battery.full,
+#battery.plugged {
+    color: @green;
 }
 
 #cpu.critical,
 #temperature.critical,
 #memory.critical,
 #disk.critical,
-#battery.critical,
 #network.disabled,
-#network.disconnected {
+#network.disconnected,
+#bluetooth.disabled,
+#bluetooth.off,
+#battery.critical {
     color: @red;
 }
 
 #cpu.warning,
 #memory.warning,
 #disk.warning,
-#battery.warning,
-#pulseaudio.muted {
+#network.linked,
+#pulseaudio.muted,
+#battery.warning {
     color: @orange;
 }
 
