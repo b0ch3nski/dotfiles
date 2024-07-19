@@ -1,0 +1,2 @@
+#!/bin/sh
+exec Xwayland "${@} -nolisten tcp -auth ${XAUTHORITY}" # > /tmp/xwayland.log 2>&1

@@ -23,9 +23,11 @@ if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
 fi
 export GPG_TTY="$(tty)"
 
+# xwayland config
+export XAUTHORITY="${XDG_RUNTIME_DIR}/Xauthority" WLR_XWAYLAND="xwayland-wrapper"
+
 # start WM on login
 if systemctl -q is-active graphical.target && [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  export XDG_SESSION_TYPE="wayland" XDG_CURRENT_DESKTOP="sway" # WLR_DRM_NO_ATOMIC=1
-  exec sway
-  # exec sway -d > /tmp/sway.log 2>&1
+  export XDG_SESSION_TYPE="wayland" XDG_CURRENT_DESKTOP="sway"
+  exec sway # -d > /tmp/sway.log 2>&1
 fi
