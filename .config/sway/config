@@ -233,8 +233,8 @@ exec swayidle \
     before-sleep '$locker' \
     after-resume '$output-on'
 
-# handle lid opening
-bindswitch --locked lid:off exec duo-screen-handler
+# handle lid states
+bindswitch --locked lid:toggle exec duo-screen-handler
 
 # terminal binds
 bindsym $mod+grave exec $term
