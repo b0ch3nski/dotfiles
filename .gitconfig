@@ -1,6 +1,6 @@
 [user]
 	name = Piotr Bocheński
-	email = bochenski.piotr@gmail.com
+	email = piotr@bochen.ski
 	signingkey = 0x9E32CE5D595D773A
 [gpg]
 	program = gpg2

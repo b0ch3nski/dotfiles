@@ -81,7 +81,7 @@
     "network#ethernet": {
         "interval": 15,
         "interface": "en*",
-        "format-ethernet": " LAN",
+        "format": " LAN",
         "tooltip-format": "{ifname}: {ipaddr}",
         "tooltip-format-disconnected": "Offline",
         "on-click": "nm-connection-editor"
