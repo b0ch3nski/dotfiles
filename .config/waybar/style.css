@@ -20,6 +20,8 @@ tooltip {
     background: @background;
     border: 1px solid @border;
     padding: 0px 10px 0px 10px;
+    transition-property: min-width, color;
+    transition-duration: .5s;
 }
 
 .modules-left {
@@ -35,6 +37,7 @@ tooltip {
 #window,
 #tray {
     padding: 0px 5px 0px 5px;
+    transition-property: none;
 }
 
 #workspaces button {

@@ -13,7 +13,6 @@
         "disk",
         "network#wifi",
         "network#ethernet",
-        "network#vpn",
         "pulseaudio",
         "bluetooth",
         "battery",
@@ -71,7 +70,8 @@
     },
     "network#wifi": {
         "interval": 15,
-        "interface": "wl*",
+        "interface": "wlan0",
+        "family": "ipv4",
         "format-wifi": " {essid} {signalStrength}%",
         "format-disconnected": " WiFi",
         "tooltip-format": "{ifname}: {ipaddr}",
@@ -80,19 +80,12 @@
     },
     "network#ethernet": {
         "interval": 15,
-        "interface": "en*",
-        "format": " LAN",
+        "interface": "eth0",
+        "family": "ipv4",
+        "format-ethernet": " LAN",
         "tooltip-format": "{ifname}: {ipaddr}",
         "tooltip-format-disconnected": "Offline",
         "on-click": "nm-connection-editor"
-    },
-    "network#vpn": {
-        "interval": 15,
-        "interface": "tun0",
-        "format": "嬨 VPN",
-        "tooltip-format": "{ifname}: {ipaddr}",
-        "tooltip-format-disconnected": "Offline",
-        "tooltip-format-disabled": "Offline"
     },
     "pulseaudio": {
         "format": " {volume}%",
