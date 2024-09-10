@@ -16,8 +16,11 @@ input "*" {
     repeat_rate  30
 }
 input type:touchpad {
+    dwt            enabled
     tap            disabled
     natural_scroll disabled
+    accel_profile  "adaptive"
+    pointer_accel  0.4
 }
 
 # variables
