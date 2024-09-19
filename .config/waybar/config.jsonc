@@ -19,6 +19,9 @@
         "tray",
         "clock"
     ],
+    "sway/window": {
+        "tooltip": false
+    },
     "cpu": {
         "interval": 3,
         "states": {
