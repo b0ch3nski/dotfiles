@@ -3,6 +3,7 @@ set -Eeuo pipefail
 
 export FZF_DEFAULT_OPTS="--height='100%' --layout='reverse' --cycle --color='bg+:6,fg+:0,hl+:-1,prompt:1,gutter:-1'"
 
+UNICODE_ANNOTATIONS_PATH="${HOME}/.cache/emoji/en.xml" # https://raw.githubusercontent.com/unicode-org/cldr/latest/common/annotations/en.xml
 SCREEN_LAYOUTS_PATH="${HOME}/.config/sway/screen-layouts"
 
 
@@ -11,6 +12,8 @@ run_menu() { j4-dmenu-desktop --no-exec --dmenu='fzf --prompt="Run application: 
 pass_menu() { gopass list --flat | fzf --prompt="Password store: " | xargs -I{} gopass show -c "{}"; }
 
 clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " | cliphist decode | wl-copy; }
+
+emoji_menu() { xmllint --xpath '/ldml/annotations/annotation[not(@type="tts")]' "${UNICODE_ANNOTATIONS_PATH}" | awk -F'[<>"]' '/<annotation/{ print $3, "\t", $5 }' | fzf --prompt="Pick emoji: " | cut -d$'\t' -f1 | wl-copy --trim-newline; }
 
 _window_switcher() { swaymsg -t get_tree | jq -r 'recurse(.nodes[], .floating_nodes[]) | select(.shell and (.focused | not)) | "\(.id)\t\(.app_id // .window_properties.class)\t\(.name)"' | column -t -s$'\t' -o$'\t' | fzf --delimiter=$'\t' --with-nth=2,3 --prompt="${1^} application: " | cut -d$'\t' -f1 | xargs -I{} swaymsg "[con_id={}] ${1}"; }
 
@@ -81,6 +84,9 @@ case ${1:-} in
     ;;
   "clip")
     clip_menu
+    ;;
+  "emoji")
+    emoji_menu
     ;;
   "focus")
     focus_menu

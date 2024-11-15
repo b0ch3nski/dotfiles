@@ -249,8 +249,14 @@ bindsym $mod+Return exec $termf -e bin/fzf-menu run
 # password menu bind
 bindsym $mod+p exec $termf -e bin/fzf-menu pass
 
+# python repl bind
+bindsym $mod+Shift+p exec $termf -e python -q
+
 # clipboard manager bind
 bindsym Control+$mod+v exec $termf -e bin/fzf-menu clip
+
+# emoji picker bind
+bindsym Control+$mod+e exec $termf -e bin/fzf-menu emoji
 
 # focus menu bind
 bindsym Mod1+Tab exec $termf -e bin/fzf-menu focus
