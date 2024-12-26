@@ -16,6 +16,7 @@
         "pulseaudio",
         "bluetooth",
         "battery",
+        "idle_inhibitor",
         "tray",
         "clock"
     ],
@@ -126,6 +127,13 @@
         "tooltip-format": "{timeTo}\nPower: {power}W",
         "tooltip-format-full": "Cycles: {cycles}\nHealth: {health}",
         "tooltip-format-plugged": "Cycles: {cycles}\nHealth: {health}"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
     },
     "tray": {
         "show-passive-items": true,

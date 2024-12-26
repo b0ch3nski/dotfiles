@@ -1,15 +1,16 @@
 [global]
     frame_color = "#84a0c6"
+    highlight   = "#b4be82,#e27878"
 
 [urgency_low]
-    background = "#161821"
-    foreground = "#b4be82"
+    background  = "#161821"
+    foreground  = "#b4be82"
 
 [urgency_normal]
-    background = "#161821"
-    foreground = "#c6c8d1"
+    background  = "#161821"
+    foreground  = "#c6c8d1"
 
 [urgency_critical]
-    background = "#161821"
-    foreground = "#e27878"
+    background  = "#161821"
+    foreground  = "#e27878"
     frame_color = "#e27878"

@@ -95,11 +95,13 @@ window#waybar.empty #window {
 }
 
 #cpu.warning,
+#temperature.warning,
 #memory.warning,
 #disk.warning,
 #network.linked,
 #pulseaudio.muted,
-#battery.warning {
+#battery.warning,
+#idle_inhibitor.activated {
     color: @orange;
 }
 

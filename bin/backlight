@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -Eeo pipefail
+set -eo pipefail
 
 brightness() {
   for target in "intel_backlight" "card1-eDP-2-backlight"; do

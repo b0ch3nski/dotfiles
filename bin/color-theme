@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+set -euo pipefail
 
 change_qt_theme() {
   for file in "${HOME}/.config/qt6ct/qt6ct.conf" "${HOME}/.config/qt5ct/qt5ct.conf"; do

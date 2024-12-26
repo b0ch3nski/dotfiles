@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+set -euo pipefail
 
 export FZF_DEFAULT_OPTS="--height='100%' --layout='reverse' --cycle --color='bg+:6,fg+:0,hl+:-1,prompt:1,gutter:-1'"
 
