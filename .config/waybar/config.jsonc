@@ -58,7 +58,7 @@
             "warning": 80,
             "critical": 95
         },
-        "format": " {avail} GiB",
+        "format": " {avail:0.1f} GiB",
         "tooltip-format": "{used:0.2f} GiB used out of {total:0.2f} GiB ({percentage}%)"
     },
     "disk": {
@@ -68,7 +68,7 @@
             "critical": 90
         },
         "path": "/",
-        "format": " {specific_free:0.2f} GiB",
+        "format": " {specific_free:0.1f} GiB",
         "tooltip-format": "{path}: {specific_used:0.2f} GiB used out of {specific_total:0.2f} GiB ({percentage_used}%)",
         "unit": "GiB"
     },

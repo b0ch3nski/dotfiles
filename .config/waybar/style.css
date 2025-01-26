@@ -18,8 +18,8 @@ tooltip {
 .module,
 tooltip {
     background: @background;
-    border: 1px solid @border;
-    padding: 0px 10px 0px 10px;
+    border: 1.5px solid @border;
+    padding: 2px 10px 2px 10px;
     transition-property: min-width, color;
     transition-duration: .5s;
 }
