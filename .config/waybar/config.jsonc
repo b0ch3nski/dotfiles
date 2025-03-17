@@ -18,6 +18,7 @@
         "battery",
         "idle_inhibitor",
         "tray",
+        "custom/temps-smolec",
         "clock"
     ],
     "sway/window": {
@@ -138,6 +139,12 @@
     "tray": {
         "show-passive-items": true,
         "icon-size": 16
+    },
+    "custom/temps-smolec": {
+        "interval": 600,
+        "format": " {}",
+        "exec": "waybar-home-temps prom.infra.warp ~/.config/infra-prom-creds smolec",
+        "return-type": "json"
     },
     "clock": {
         "format": " {:%d.%m.%Y  %H:%M}",

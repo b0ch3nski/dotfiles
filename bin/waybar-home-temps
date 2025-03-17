@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+epoch="$(date +%s)"
+
+curl \
+  --silent \
+  --insecure \
+  "https://${1}/api/v1/query_range" \
+  --user "$(cat ${2})"\
+  --data-urlencode "query=zigbee_temperature{location='${3}'}" \
+  --data-urlencode "start=$(( ${epoch} - 3600 ))" \
+  --data-urlencode "end=${epoch}" \
+  --data-urlencode "step=60s" \
+  | jq --unbuffered --compact-output \
+  '
+    if (.data.result | length) == 0
+      then error("No results found")
+    else (
+      [.data.result[] | { device: .metric.device, temp: ((.values | last)[1] | tonumber) }]) as $temps
+      | ($temps[] | select(.device == "outdoor") | .temp | round | tostring + "°C") as $text
+      | ($temps | map("\((.temp | (.*10 | round) / 10) | tostring)°C - \(.device)") | join("\r")) as $tooltip
+      | { text: $text, tooltip: $tooltip }
+    end
+  '
