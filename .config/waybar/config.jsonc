@@ -47,7 +47,8 @@
         "interval": 5,
         "thermal-zone": 0,
         "format": " {temperatureC}°C",
-        "critical-threshold": 90
+        "warning-threshold": 80,
+        "critical-threshold": 95
     },
     "load": {
         "interval": 5,

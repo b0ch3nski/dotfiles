@@ -201,9 +201,9 @@ for_window {
     [window_role="dialog"] floating enable
     [window_role="pop-up"] floating enable
     [app_id="flameshot"] fullscreen enable global
-    [app_id="qalculate-gtk"] floating enable
-    [instance="pinentry-gtk"] floating enable
-    [instance="gimp-*"] floating enable
+    [app_id="qalculate-*"] floating enable
+    [app_id="gimp-*"] floating enable
+    [instance="pinentry-*"] floating enable
 }
 
 # autostart - always
