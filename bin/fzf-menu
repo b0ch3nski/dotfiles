@@ -7,15 +7,15 @@ UNICODE_ANNOTATIONS_PATH="${HOME}/.cache/emoji/en.xml" # https://raw.githubuserc
 SCREEN_LAYOUTS_PATH="${HOME}/.config/sway/screen-layouts"
 
 
-run_menu() { j4-dmenu-desktop --no-exec --dmenu='fzf --prompt="Run application: "' | xargs -I{} swaymsg "exec {}"; }
+run_menu() { j4-dmenu-desktop --i3-ipc --dmenu='fzf --prompt="Run application: "'; }
 
-pass_menu() { gopass list --flat | fzf --prompt="Password store: " | xargs -I{} gopass show -c "{}"; }
+pass_menu() { gopass list --flat | fzf --prompt="Password store: " --bind="enter:become(gopass show -c '{}')"; }
 
-clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " | cliphist decode | wl-copy; }
+clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " --preview="cliphist decode {1} | { [[ "{2}" == \"[[ binary data \"* ]] && imgcat || cat; }" --preview-window="right,50%,wrap" --bind="enter:become(cliphist decode {1} | wl-copy)"; }
 
-emoji_menu() { xmllint --xpath '/ldml/annotations/annotation[not(@type="tts")]' "${UNICODE_ANNOTATIONS_PATH}" | awk -F'[<>"]' '/<annotation/{ print $3, "\t", $5 }' | fzf --prompt="Pick emoji: " | cut -d$'\t' -f1 | wl-copy --trim-newline; }
+emoji_menu() { xmllint --xpath '/ldml/annotations/annotation[not(@type="tts")]' "${UNICODE_ANNOTATIONS_PATH}" | awk -F'[<>"]' '/<annotation/{ print $3, "\t", $5 }' | fzf --delimiter=$'\t' --prompt="Pick emoji: " --bind="enter:become(echo -n '{1}' | wl-copy)"; }
 
-_window_switcher() { swaymsg -t get_tree | jq -r 'recurse(.nodes[], .floating_nodes[]) | select(.shell and (.focused | not)) | "\(.id)\t\(.app_id // .window_properties.class)\t\(.name)"' | column -t -s$'\t' -o$'\t' | fzf --delimiter=$'\t' --with-nth=2,3 --prompt="${1^} application: " | cut -d$'\t' -f1 | xargs -I{} swaymsg "[con_id={}] ${1}"; }
+_window_switcher() { swaymsg -t get_tree | jq -r 'recurse(.nodes[], .floating_nodes[]) | select(.shell and (.focused | not)) | "\(.id)\t\(.app_id // .window_properties.class)\t\(.name)"' | column -t -s$'\t' -o$'\t' | fzf --delimiter=$'\t' --with-nth=2,3 --prompt="${1^} application: " --bind="enter:become(swaymsg '[con_id={1}] ${1}')"; }
 
 focus_menu() { _window_switcher "focus"; }
 
@@ -29,9 +29,7 @@ kill_menu() {
   fi
 }
 
-docker_log_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Follow container logs: " | xargs -I{} docker logs --follow "{}"; }
-
-docker_kill_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Kill container: " | xargs -I{} docker rm --force --volumes "{}"; }
+docker_menu() { docker ps --all --format '{{.Names}}' | fzf --prompt="Docker containers: " --preview="docker inspect '{1}' | jq --color-output" --preview-window="right,80%" --bind="enter:become(docker logs --follow '{}'),delete:become(docker rm --force --volumes '{}')"; }
 
 power_menu() {
   local -r selection="$(fzf --prompt="Power option: " <<< $(printf "[Shutdown]\n[Reboot]\n[Reboot to UEFI]\n[Sleep]\n[Lock]"))"
@@ -56,8 +54,10 @@ power_menu() {
 
 screen_menu() {
   local -r selection="$(find "${SCREEN_LAYOUTS_PATH}" -type f -printf '[%f]\n' | sort | fzf --prompt="Screen layout: " | tr -d "[]")"
-  [[ "${selection}" ]] && swaymsg "$(cat ${SCREEN_LAYOUTS_PATH}/${selection})"
-  notify-send "${selection}" "Screen layout enabled" -u low
+  if [[ "${selection}" ]]; then
+    swaymsg "$(cat ${SCREEN_LAYOUTS_PATH}/${selection})"
+    notify-send "${selection}" "Screen layout enabled" -u low
+  fi
 }
 
 theme_menu() {
@@ -97,11 +97,8 @@ case ${1:-} in
   "kill")
     kill_menu
     ;;
-  "docker-logs")
-    docker_log_menu
-    ;;
-  "docker-kill")
-    docker_kill_menu
+  "docker")
+    docker_menu
     ;;
   "power")
     power_menu

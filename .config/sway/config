@@ -197,6 +197,7 @@ tiling_drag enable
 for_window {
     [title="(?:Open|Save|All) (?:[Ff]ile|[Ff]older|[Dd]irectory|[Aa]s).*"] floating enable, resize set 70ppt 90ppt, move position center
     [app_id="termfloat"] floating enable, resize set 550 350, move position center
+    [app_id="termclip"] floating enable, resize set 1200 500, move position center
     [window_type="dialog"] floating enable
     [window_role="dialog"] floating enable
     [window_role="pop-up"] floating enable
@@ -244,37 +245,37 @@ bindsym $mod+grave exec $term
 bindsym $mod+Shift+grave exec $termf
 
 # run menu bind
-bindsym $mod+Return exec $termf -e bin/fzf-menu run
+bindsym $mod+Return exec $termf --command bin/fzf-menu run
 
 # password menu bind
-bindsym $mod+p exec $termf -e bin/fzf-menu pass
+bindsym $mod+p exec $termf --command bin/fzf-menu pass
 
 # python repl bind
-bindsym $mod+Shift+p exec $termf -e python -q
+bindsym $mod+Shift+p exec $termf --command python -q
 
 # clipboard manager bind
-bindsym Control+$mod+v exec $termf -e bin/fzf-menu clip
+bindsym Control+$mod+v exec $term --class termclip --command bin/fzf-menu clip
 
 # emoji picker bind
-bindsym Control+$mod+e exec $termf -e bin/fzf-menu emoji
+bindsym Control+$mod+e exec $term --class termclip --command bin/fzf-menu emoji
 
 # focus menu bind
-bindsym Mod1+Tab exec $termf -e bin/fzf-menu focus
+bindsym Mod1+Tab exec $termf --command bin/fzf-menu focus
 
 # exit menu bind
-bindsym $mod+Tab exec $termf -e bin/fzf-menu exit
+bindsym $mod+Tab exec $termf --command bin/fzf-menu exit
 
 # kill menu bind
-bindsym $mod+Escape exec $termf -e bin/fzf-menu kill
+bindsym $mod+Escape exec $termf --command bin/fzf-menu kill
 
 # power menu bind
-bindsym Control+Mod1+Delete exec $termf -e bin/fzf-menu power
+bindsym Control+Mod1+Delete exec $termf --command bin/fzf-menu power
 
 # screen layout menu bind
-bindsym Control+Mod1+BackSpace exec $termf -e bin/fzf-menu screen
+bindsym Control+Mod1+BackSpace exec $termf --command bin/fzf-menu screen
 
 # color theme menu bind
-bindsym $mod+t exec $termf -e bin/fzf-menu theme
+bindsym $mod+t exec $termf --command bin/fzf-menu theme
 
 # lock screen bind
 bindsym $mod+Mod1+l exec loginctl lock-session
