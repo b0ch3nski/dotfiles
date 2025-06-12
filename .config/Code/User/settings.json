@@ -30,7 +30,6 @@
     "git.rebaseWhenSync": true,
     "git.showPushSuccessNotification": true,
     "gitlens.codeLens.enabled": false,
-    "gitlens.showWelcomeOnInstall": false,
     "gitlens.showWhatsNewAfterUpgrades": false,
     "go.buildFlags": [
         "-v"
@@ -47,9 +46,7 @@
     "gopls": {
         "ui.semanticTokens": true
     },
-    "java.project.importOnFirstTimeStartup": "automatic",
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "maven.executable.preferMavenWrapper": false,
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "problems.showCurrentInStatus": true,
     "python.experiments.enabled": false,
@@ -75,7 +72,6 @@
     "typescript.updateImportsOnFileMove.enabled": "always",
     "update.mode": "none",
     "update.showReleaseNotes": false,
-    "vscode-kubernetes.helm-path": "/usr/bin/helm",
     "window.autoDetectColorScheme": false,
     "window.autoDetectHighContrast": false,
     "window.newWindowDimensions": "maximized",
@@ -92,5 +88,8 @@
     "workbench.startupEditor": "none",
     "workbench.tips.enabled": false,
     "xml.format.enforceQuoteStyle": "preferred",
-    "yaml.schemaStore.enable": false
+    "yaml.schemaStore.enable": false,
+    "[templ]": {
+        "editor.defaultFormatter": "a-h.templ"
+    }
 }

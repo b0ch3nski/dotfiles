@@ -18,3 +18,7 @@
 	branch = false
 [fetch]
 	prune = true
+[http]
+	timeout = 15
+	lowSpeedTime = 30
+	lowSpeedLimit = 1000
