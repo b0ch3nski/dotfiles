@@ -77,8 +77,7 @@ window#waybar.empty #window {
 
 #network,
 #bluetooth.on,
-#battery.full,
-#battery.plugged {
+#battery.charging {
     color: @green;
 }
 

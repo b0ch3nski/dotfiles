@@ -1,6 +1,10 @@
 {
+    "[templ]": {
+        "editor.defaultFormatter": "a-h.templ"
+    },
     "debug.showBreakpointsInOverviewRuler": true,
     "diffEditor.ignoreTrimWhitespace": false,
+    "docker.extension.enableComposeLanguageServer": false,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.dragAndDrop": false,
     "editor.fontFamily": "'SauceCodePro Nerd Font', 'Source Code Pro', 'Inconsolata', 'Noto Emoji'",
@@ -25,6 +29,8 @@
     "files.hotExit": "off",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
+    "geminicodeassist.inlineSuggestions.enableAuto": false,
+    "geminicodeassist.updateChannel": "Insiders",
     "git.alwaysSignOff": true,
     "git.enableSmartCommit": true,
     "git.rebaseWhenSync": true,
@@ -88,8 +94,5 @@
     "workbench.startupEditor": "none",
     "workbench.tips.enabled": false,
     "xml.format.enforceQuoteStyle": "preferred",
-    "yaml.schemaStore.enable": false,
-    "[templ]": {
-        "editor.defaultFormatter": "a-h.templ"
-    }
+    "yaml.schemaStore.enable": false
 }

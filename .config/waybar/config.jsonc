@@ -124,11 +124,9 @@
             ""
         ],
         "format": "{icon} {capacity}%",
-        "format-full": "{icon} {capacity}%",
-        "format-plugged": "{icon} {capacity}%",
-        "tooltip-format": "{timeTo}\nPower: {power}W",
-        "tooltip-format-full": "Cycles: {cycles}\nHealth: {health}",
-        "tooltip-format-plugged": "Cycles: {cycles}\nHealth: {health}"
+        "tooltip-format": "Cycles: {cycles}\nHealth: {health}",
+        "tooltip-format-charging": "{timeTo}\nPower: {power}W",
+        "tooltip-format-discharging": "{timeTo}\nPower: {power}W"
     },
     "idle_inhibitor": {
         "format": "{icon}",
