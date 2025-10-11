@@ -138,6 +138,8 @@ if command -v fzf &> /dev/null; then
   export FZF_ALT_C_OPTS="--walker='dir,hidden,follow' --preview='eza --color=always --all --tree {}'"
 fi
 
+[[ "${TERM_PROGRAM}" == "vscode" ]] && source "$(code --locate-shell-integration-path zsh 2>/dev/null)"
+
 [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f "/usr/share/doc/pkgfile/command-not-found.zsh" ] && source /usr/share/doc/pkgfile/command-not-found.zsh
 [ -f "/opt/google-cloud-cli/completion.zsh.inc" ] && source /opt/google-cloud-cli/completion.zsh.inc
