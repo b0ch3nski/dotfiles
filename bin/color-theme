@@ -10,7 +10,6 @@ change_qt_theme() {
 change_gtk_theme() {
   sed -i 's/\(^Net\/ThemeName\ "\)[^"]*/\1'"${1}"'/; s/\(^Net\/IconThemeName\ "\)[^"]*/\1'"${2}"'/' "${HOME}/.config/xsettingsd/xsettingsd.conf"
   sed -i 's/\(^gtk-theme-name=\).*/\1'"${1}"'/; s/\(^gtk-icon-theme-name=\).*/\1'"${2}"'/' "${HOME}/.config/gtk-3.0/settings.ini"
-  sed -i 's/\(^gtk-theme-name="\)[^"]*/\1'"${1}"'/; s/\(^gtk-icon-theme-name="\)[^"]*/\1'"${2}"'/' "${HOME}/.gtkrc-2.0"
   gsettings set org.gnome.desktop.interface gtk-theme "${1}"
   gsettings set org.gnome.desktop.interface icon-theme "${2}"
   killall -HUP xsettingsd

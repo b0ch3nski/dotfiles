@@ -21,6 +21,8 @@ SAVEHIST="${HISTSIZE}"
 HISTORY_IGNORE="(ls|ll|cd|pwd|kill)"
 
 # fancy functions
+sudoui() { sudo env XDG_CACHE_HOME=/root/.cache "${@}"; }
+
 cat-clip() { [[ -f "${1}" ]] && (wl-copy < "${1}") || echo "${1}: No such file"; }
 
 hex() { [[ -n "${1}" ]] && printf "%x\n" $1 || print "Usage: hex <number-to-convert>" }
