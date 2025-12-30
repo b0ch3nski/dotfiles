@@ -16,6 +16,8 @@
     "[templ]": {
         "editor.defaultFormatter": "a-h.templ"
     },
+    "chat.mcp.autostart": "newAndOutdated",
+    "chat.viewSessions.orientation": "stacked",
     "debug.showBreakpointsInOverviewRuler": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "docker.extension.enableComposeLanguageServer": false,
@@ -49,6 +51,7 @@
     "git.enableSmartCommit": true,
     "git.rebaseWhenSync": true,
     "git.showPushSuccessNotification": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
     "gitlens.codeLens.enabled": false,
     "gitlens.showWhatsNewAfterUpgrades": false,
     "go.buildFlags": [

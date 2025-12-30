@@ -23,9 +23,9 @@ change_vim_background() { sed -i 's/\(^set background=\).*/\1'"${1}"'/' "${HOME}
 
 force_chrome_dark_theme() {
   local -r param="--force-dark-mode"
-  local -r file="${HOME}/.config/chrome-flags.conf"
+  local -r file="${HOME}/.config/${1}-flags.conf"
 
-  if [ "${1}" = "true" ]; then
+  if [ "${2}" = "true" ]; then
     grep -qE '^'"${param}"'$' "${file}" || echo "${param}" >> "${file}"
   else
     sed -i '/'"${param}"'/d' "${file}"
@@ -55,7 +55,8 @@ light() {
   change_alacritty_theme "iceberg-light"
   change_vscode_theme "Iceberg Light"
   change_vim_background "light"
-  force_chrome_dark_theme "false"
+  force_chrome_dark_theme "chrome" "false"
+  force_chrome_dark_theme "microsoft-edge-stable" "false"
   change_waybar_theme "iceberg-light"
   change_dunst_theme "iceberg-light"
   change_sway_theme "iceberg-light" "${HOME}/Pictures/Wallpapers/iceberg-light.jpg"
@@ -69,7 +70,8 @@ dark() {
   change_alacritty_theme "iceberg-dark"
   change_vscode_theme "Iceberg"
   change_vim_background "dark"
-  force_chrome_dark_theme "true"
+  force_chrome_dark_theme "chrome" "true"
+  force_chrome_dark_theme "microsoft-edge-stable" "true"
   change_waybar_theme "iceberg-dark"
   change_dunst_theme "iceberg-dark"
   change_sway_theme "iceberg-dark" "${HOME}/Pictures/Wallpapers/iceberg-dark.jpg"

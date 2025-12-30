@@ -11,7 +11,7 @@ run_menu() { j4-dmenu-desktop --i3-ipc --dmenu='fzf --prompt="Run application: "
 
 pass_menu() { gopass list --flat | fzf --prompt="Password store: " --bind="enter:become(gopass show -c '{}')"; }
 
-clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " --preview="cliphist decode {1} | { [[ "{2}" == \"[[ binary data \"* ]] && imgcat || cat; }" --preview-window="right,50%,wrap" --bind="enter:become(cliphist decode {1} | wl-copy)"; }
+clip_menu() { cliphist list | fzf --delimiter=$'\t' --with-nth=2 --prompt="Clipboard content: " --preview="cliphist decode {1} | { [[ "{2}" == \"[[ binary data \"* ]] && imgcat -cols=\${FZF_PREVIEW_COLUMNS} -rows=\${FZF_PREVIEW_LINES} -top-offset=0 || cat; }" --preview-window="right,50%,wrap" --bind="enter:become(cliphist decode {1} | wl-copy)"; }
 
 emoji_menu() { xmllint --xpath '/ldml/annotations/annotation[not(@type="tts")]' "${UNICODE_ANNOTATIONS_PATH}" | awk -F'[<>"]' '/<annotation/{ print $3, "\t", $5 }' | fzf --delimiter=$'\t' --prompt="Pick emoji: " --bind="enter:become(echo -n '{1}' | wl-copy)"; }
 
