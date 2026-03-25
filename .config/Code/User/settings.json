@@ -18,6 +18,8 @@
     },
     "chat.mcp.autostart": "newAndOutdated",
     "chat.viewSessions.orientation": "stacked",
+    "claudeCode.preferredLocation": "sidebar",
+    "claudeCode.selectedModel": "opus",
     "debug.showBreakpointsInOverviewRuler": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "docker.extension.enableComposeLanguageServer": false,
@@ -69,7 +71,6 @@
     "gopls": {
         "ui.semanticTokens": true
     },
-    "javascript.updateImportsOnFileMove.enabled": "always",
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "problems.showCurrentInStatus": true,
     "python.experiments.enabled": false,
@@ -92,7 +93,6 @@
     ],
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.copyOnSelection": true,
-    "typescript.updateImportsOnFileMove.enabled": "always",
     "update.mode": "none",
     "update.showReleaseNotes": false,
     "window.autoDetectColorScheme": false,
