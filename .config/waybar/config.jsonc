@@ -18,7 +18,7 @@
         "battery",
         "idle_inhibitor",
         "tray",
-        "custom/temps-smolec",
+        "custom/temps-home",
         "clock"
     ],
     "sway/window": {
@@ -125,8 +125,8 @@
         ],
         "format": "{icon} {capacity}%",
         "tooltip-format": "Cycles: {cycles}\nHealth: {health}",
-        "tooltip-format-charging": "{timeTo}\nPower: {power}W",
-        "tooltip-format-discharging": "{timeTo}\nPower: {power}W"
+        "tooltip-format-charging": "{timeTo}\nPower: {power:0.2f}W",
+        "tooltip-format-discharging": "{timeTo}\nPower: {power:0.2f}W"
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -139,10 +139,10 @@
         "show-passive-items": true,
         "icon-size": 16
     },
-    "custom/temps-smolec": {
+    "custom/temps-home": {
         "interval": 600,
         "format": " {}",
-        "exec": "waybar-home-temps prom.infra.warp ~/.config/infra-prom-creds smolec",
+        "exec": "waybar-home-temps prom.infra.warp ~/.config/infra-prom-creds osadnicza",
         "return-type": "json"
     },
     "clock": {

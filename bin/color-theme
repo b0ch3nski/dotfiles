@@ -12,7 +12,7 @@ change_gtk_theme() {
   sed -i 's/\(^gtk-theme-name=\).*/\1'"${1}"'/; s/\(^gtk-icon-theme-name=\).*/\1'"${2}"'/' "${HOME}/.config/gtk-3.0/settings.ini"
   gsettings set org.gnome.desktop.interface gtk-theme "${1}"
   gsettings set org.gnome.desktop.interface icon-theme "${2}"
-  killall -HUP xsettingsd
+  killall --quiet -HUP xsettingsd || true
 }
 
 change_alacritty_theme() { sed -i 's/\(\.config\/alacritty\/\).*\(\.toml\)/\1'"${1}"'\2/' "${HOME}/.config/alacritty/alacritty.toml"; }
@@ -37,7 +37,7 @@ change_waybar_theme() {
 }
 
 change_dunst_theme() {
-  killall --wait dunst
+  killall --quiet --wait dunst || true
   ln --symbolic --force "${HOME}/.config/dunst/dunstrc.d/${1}" "${HOME}/.config/dunst/dunstrc.d/99-theme.conf"
 }
 
