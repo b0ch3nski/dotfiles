@@ -1,0 +1,11 @@
+{
+    "position": "top",
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/window"
+    ],
+    "sway/window": {
+        "tooltip": false
+    }
+}

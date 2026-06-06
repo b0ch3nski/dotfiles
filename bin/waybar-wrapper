@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+outputs="$(swaymsg -t get_outputs)"
+landscape="$(echo "${outputs}" | jq '[.[] | select(.active and .rect.height < .rect.width) | .name]')"
+portrait="$(echo "${outputs}" | jq '[.[] | select(.active and .rect.height > .rect.width) | .name]')"
+
+jq -s "[
+  (if (${landscape} | length) > 0 then .[0] | .output = ${landscape} else empty end),
+  (if (${portrait} | length) > 0 then .[1] | .output = ${portrait} else empty end)
+]" ~/.config/waybar/config.jsonc ~/.config/waybar/config-minimal.jsonc > /tmp/waybar.jsonc
+
+killall --quiet --wait waybar || true
+exec waybar --config /tmp/waybar.jsonc # | tee /tmp/waybar.log
