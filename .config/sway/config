@@ -196,7 +196,7 @@ tiling_drag enable
 # application specific settings
 for_window {
     [title="(?:Open|Save|All) (?:[Ff]ile|[Ff]older|[Dd]irectory|[Aa]s).*"] floating enable, resize set 70ppt 90ppt, move position center
-    [app_id="termfloat"] floating enable, resize set 20ppt 25ppt, move position center
+    [app_id="termfloat"] floating enable, resize set 550 350, move position center
     [app_id="termclip"] floating enable, resize set 50ppt 40ppt, move position center
     [window_type="dialog"] floating enable
     [window_role="dialog"] floating enable
